@@ -1,1 +1,1 @@
-# smart-traffic-lights-simulation
+# Smart traffic lights simulation
