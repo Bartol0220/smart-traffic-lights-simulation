@@ -30,4 +30,9 @@ public abstract class Vehicle {
     public int getPriority() {
         return priority;
     }
+
+    @Override
+    public String toString() {
+        return id;
+    }
 }

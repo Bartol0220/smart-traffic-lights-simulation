@@ -1,4 +1,4 @@
-package pl.bartol0220.stls.model;
+package pl.bartol0220.stls.model.lightControllers;
 
 public class TrafficLight {
     private LightsColor color = LightsColor.RED;

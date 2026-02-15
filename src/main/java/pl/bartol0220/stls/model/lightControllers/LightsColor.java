@@ -1,4 +1,4 @@
-package pl.bartol0220.stls.model;
+package pl.bartol0220.stls.model.lightControllers;
 
 public enum LightsColor {
     RED(0),
