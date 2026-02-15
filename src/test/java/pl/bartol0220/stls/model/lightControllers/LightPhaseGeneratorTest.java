@@ -86,7 +86,7 @@ class LightPhaseGeneratorTest {
     }
 
     @Test
-    void generateLightPhaseWorks1() {
+    void generateLightPhaseWorks0() {
         Intersection intersection = new Intersection();
 
         Road road = intersection.getRoad(RoadsDirection.NORTH);
@@ -108,7 +108,7 @@ class LightPhaseGeneratorTest {
     }
 
     @Test
-    void generateLightPhaseWorks2() {
+    void generateLightPhaseWorks1() {
         Intersection intersection = new Intersection();
 
         Road road = intersection.getRoad(RoadsDirection.NORTH);
@@ -116,6 +116,28 @@ class LightPhaseGeneratorTest {
 
         road = intersection.getRoad(RoadsDirection.SOUTH);
         road.addTrafficLane(List.of(RoadsDirection.NORTH));
+
+        road = intersection.getRoad(RoadsDirection.EAST);
+        road.addTrafficLane(List.of(RoadsDirection.WEST));
+
+        road = intersection.getRoad(RoadsDirection.WEST);
+        road.addTrafficLane(List.of(RoadsDirection.EAST));
+
+        LightPhaseGenerator lightPhaseGenerator = new LightPhaseGenerator();
+        Set<LightPhase> lightPhases = lightPhaseGenerator.GenerateLightPhases(intersection);
+
+        testLanesCoverageAndCollisions(intersection, lightPhases, lightPhaseGenerator);
+    }
+
+    @Test
+    void generateLightPhaseWorks2() {
+        Intersection intersection = new Intersection();
+
+        Road road = intersection.getRoad(RoadsDirection.NORTH);
+        road.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST));
+
+        road = intersection.getRoad(RoadsDirection.SOUTH);
+        road.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST));
 
         road = intersection.getRoad(RoadsDirection.EAST);
         road.addTrafficLane(List.of(RoadsDirection.WEST));
@@ -134,16 +156,16 @@ class LightPhaseGeneratorTest {
         Intersection intersection = new Intersection();
 
         Road road = intersection.getRoad(RoadsDirection.NORTH);
-        road.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST));
+        road.addTrafficLane(List.of(RoadsDirection.EAST, RoadsDirection.SOUTH, RoadsDirection.WEST));
 
         road = intersection.getRoad(RoadsDirection.SOUTH);
-        road.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST));
+        road.addTrafficLane(List.of(RoadsDirection.WEST, RoadsDirection.NORTH, RoadsDirection.EAST));
 
         road = intersection.getRoad(RoadsDirection.EAST);
-        road.addTrafficLane(List.of(RoadsDirection.WEST));
+        road.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST, RoadsDirection.NORTH));
 
         road = intersection.getRoad(RoadsDirection.WEST);
-        road.addTrafficLane(List.of(RoadsDirection.EAST));
+        road.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST, RoadsDirection.SOUTH));
 
         LightPhaseGenerator lightPhaseGenerator = new LightPhaseGenerator();
         Set<LightPhase> lightPhases = lightPhaseGenerator.GenerateLightPhases(intersection);
