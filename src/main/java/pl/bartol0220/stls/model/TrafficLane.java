@@ -1,6 +1,8 @@
 package pl.bartol0220.stls.model;
 
 import pl.bartol0220.stls.model.lightControllers.TrafficLight;
+import pl.bartol0220.stls.model.util.LaneType;
+import pl.bartol0220.stls.model.util.RoadsDirection;
 import pl.bartol0220.stls.model.vehicles.Vehicle;
 
 import java.util.*;
@@ -58,10 +60,23 @@ public class TrafficLane {
         vehiclesPriority = vehiclesPriority + vehicle.getPriority();
     }
 
+    public TrafficLight getTrafficLight() {
+        return trafficLight;
+    }
+
     public Optional<Vehicle> nextVehicle() {
+        // TODO checking if light is green
         Optional<Vehicle> vehicle = Optional.ofNullable(vehicles.poll());
         vehiclesPriority -= vehicle.map(Vehicle::getPriority).orElse(0);
         return vehicle;
+    }
+
+    public void changeLightToGreen() {
+        trafficLight.changeLightToGreen();
+    }
+
+    public void changeLightToRed() {
+        trafficLight.changeLightToRed();
     }
 
     @Override
@@ -81,10 +96,11 @@ public class TrafficLane {
         for (LaneType laneType : laneType) {
             sb.append(laneType).append(" ");
         }
-        sb.append("\n    Vehicles: ");
+        sb.append("\n      Vehicles: ");
         for (Vehicle vehicle : vehicles) {
             sb.append(vehicle).append(" ");
         }
+        sb.append("\n      ").append(trafficLight);
         return sb.toString();
     }
 }

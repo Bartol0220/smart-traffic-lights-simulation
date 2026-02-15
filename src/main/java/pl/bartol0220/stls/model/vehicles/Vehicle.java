@@ -1,6 +1,6 @@
 package pl.bartol0220.stls.model.vehicles;
 
-import pl.bartol0220.stls.model.RoadsDirection;
+import pl.bartol0220.stls.model.util.RoadsDirection;
 
 public abstract class Vehicle {
     private final String id;

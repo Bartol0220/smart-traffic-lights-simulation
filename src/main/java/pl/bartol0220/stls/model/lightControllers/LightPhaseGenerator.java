@@ -1,14 +1,14 @@
 package pl.bartol0220.stls.model.lightControllers;
 
 import pl.bartol0220.stls.model.Intersection;
-import pl.bartol0220.stls.model.LaneType;
-import pl.bartol0220.stls.model.RoadsDirection;
+import pl.bartol0220.stls.model.util.LaneType;
+import pl.bartol0220.stls.model.util.RoadsDirection;
 import pl.bartol0220.stls.model.TrafficLane;
 
 import java.util.*;
 
 public class LightPhaseGenerator {
-    public Set<LightPhase> GenerateLightPhases(Intersection intersection) {
+    public List<LightPhase> GenerateLightPhases(Intersection intersection) {
         Set<LightPhase> lightPhases = new HashSet<>();
         List<TrafficLane> allLanes = intersection.getAllLanes();
         Map<TrafficLane, Set<TrafficLane>> collisionMap = getCollisionMap(allLanes);
@@ -59,7 +59,7 @@ public class LightPhaseGenerator {
             lightPhases.add(phase);
         }
 
-        return lightPhases;
+        return lightPhases.stream().toList();
     }
 
     private Map<TrafficLane, Set<TrafficLane>> getCollisionMap(List<TrafficLane> allLanes) {

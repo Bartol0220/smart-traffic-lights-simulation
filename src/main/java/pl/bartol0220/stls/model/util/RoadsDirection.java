@@ -1,4 +1,4 @@
-package pl.bartol0220.stls.model;
+package pl.bartol0220.stls.model.util;
 
 public enum RoadsDirection {
     NORTH(0),

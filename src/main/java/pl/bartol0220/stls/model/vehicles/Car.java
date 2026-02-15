@@ -1,6 +1,6 @@
 package pl.bartol0220.stls.model.vehicles;
 
-import pl.bartol0220.stls.model.RoadsDirection;
+import pl.bartol0220.stls.model.util.RoadsDirection;
 
 public class Car extends Vehicle {
     public Car(String id, RoadsDirection startRoad, RoadsDirection endRoad) {

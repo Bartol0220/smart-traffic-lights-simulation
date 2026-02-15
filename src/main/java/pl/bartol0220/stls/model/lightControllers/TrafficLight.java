@@ -20,4 +20,8 @@ public class TrafficLight {
             color = color.nextColor();
         }
     }
+
+    public String toString() {
+        return "TL: " + color.toString();
+    }
 }

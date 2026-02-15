@@ -1,5 +1,7 @@
 package pl.bartol0220.stls.model;
 
+import pl.bartol0220.stls.model.util.RoadsDirection;
+
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;

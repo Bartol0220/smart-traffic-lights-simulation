@@ -18,6 +18,32 @@ public class LightPhase {
         return Collections.unmodifiableSet(trafficLanes);
     }
 
+    public void changeLightToGreen() {
+        for (TrafficLane trafficLane : trafficLanes) {
+            trafficLane.changeLightToGreen();
+        }
+    }
+
+    public void changeLightToRed() {
+        for (TrafficLane trafficLane : trafficLanes) {
+            trafficLane.changeLightToRed();
+        }
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder("Light phase:\n");
+        for (TrafficLane trafficLane : trafficLanes) {
+            sb.append("  ")
+                    .append(trafficLane.getEntryDirection())
+                    .append(" -> ")
+                    .append(trafficLane.getExitDirections())
+                    .append(" | ")
+                    .append(trafficLane.getLaneType())
+                    .append("\n");
+        }
+        return sb.toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
