@@ -1,6 +1,7 @@
 package pl.bartol0220.stls;
 
 import pl.bartol0220.stls.exceptions.EmptyLightPhases;
+import pl.bartol0220.stls.exceptions.InvalidTrafficLaneDirectionException;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
 import pl.bartol0220.stls.model.lightControllers.*;
@@ -14,17 +15,22 @@ public class Main {
 
         System.out.println(intersection);
 
-        Road road = intersection.getRoad(RoadsDirection.NORTH);
-        road.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST));
+        try {
+            Road road = intersection.getRoad(RoadsDirection.NORTH);
+            road.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST));
 
-        road = intersection.getRoad(RoadsDirection.SOUTH);
-        road.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST));
+            road = intersection.getRoad(RoadsDirection.SOUTH);
+            road.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST));
 
-        road = intersection.getRoad(RoadsDirection.EAST);
-        road.addTrafficLane(List.of(RoadsDirection.WEST));
+            road = intersection.getRoad(RoadsDirection.EAST);
+            road.addTrafficLane(List.of(RoadsDirection.WEST));
 
-        road = intersection.getRoad(RoadsDirection.WEST);
-        road.addTrafficLane(List.of(RoadsDirection.EAST));
+            road = intersection.getRoad(RoadsDirection.WEST);
+            road.addTrafficLane(List.of(RoadsDirection.EAST));
+        } catch (InvalidTrafficLaneDirectionException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
 
         System.out.println(intersection);
 

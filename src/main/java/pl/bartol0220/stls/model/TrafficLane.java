@@ -105,4 +105,47 @@ public class TrafficLane {
         sb.append("\n      ").append(trafficLight);
         return sb.toString();
     }
+
+    public int getHighestDirectionWeight() {
+        return laneType.stream()
+                .mapToInt(TrafficLane::getLaneTypeWeight)
+                .max()
+                .orElse(0);
+    }
+
+    public int getLowestDirectionWeight() {
+        return laneType.stream()
+                .mapToInt(TrafficLane::getLaneTypeWeight)
+                .min()
+                .orElse(Integer.MAX_VALUE);
+    }
+
+    private static int getLaneTypeWeight(LaneType type) {
+        return switch (type) {
+            case U_TURN -> 1;
+            case LEFT -> 2;
+            case STRAIGHT -> 3;
+            case RIGHT -> 4;
+        };
+    }
+
+    public static final Comparator<TrafficLane> VISUAL_ORDER = (lane1, lane2) -> {
+        List<LaneType> types1 = new ArrayList<>(lane1.getLaneType());
+        List<LaneType> types2 = new ArrayList<>(lane2.getLaneType());
+
+        types1.sort(Comparator.comparingInt(TrafficLane::getLaneTypeWeight));
+        types2.sort(Comparator.comparingInt(TrafficLane::getLaneTypeWeight));
+
+        int size = Math.min(types1.size(), types2.size());
+        for (int i = 0; i < size; i++) {
+            int weight1 = getLaneTypeWeight(types1.get(i));
+            int weight2 = getLaneTypeWeight(types2.get(i));
+
+            if (weight1 != weight2) {
+                return Integer.compare(weight1, weight2);
+            }
+        }
+
+        return Integer.compare(types1.size(), types2.size());
+    };
 }

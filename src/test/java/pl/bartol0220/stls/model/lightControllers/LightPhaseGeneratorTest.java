@@ -1,6 +1,7 @@
 package pl.bartol0220.stls.model.lightControllers;
 
 import org.junit.jupiter.api.Test;
+import pl.bartol0220.stls.exceptions.InvalidTrafficLaneDirectionException;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
 import pl.bartol0220.stls.model.util.RoadsDirection;
@@ -86,7 +87,7 @@ class LightPhaseGeneratorTest {
     }
 
     @Test
-    void generateLightPhaseWorks0() {
+    void generateLightPhaseWorks0() throws InvalidTrafficLaneDirectionException {
         Intersection intersection = new Intersection();
 
         Road road = intersection.getRoad(RoadsDirection.NORTH);
@@ -108,7 +109,7 @@ class LightPhaseGeneratorTest {
     }
 
     @Test
-    void generateLightPhaseWorks1() {
+    void generateLightPhaseWorks1() throws InvalidTrafficLaneDirectionException {
         Intersection intersection = new Intersection();
 
         Road road = intersection.getRoad(RoadsDirection.NORTH);
@@ -130,7 +131,7 @@ class LightPhaseGeneratorTest {
     }
 
     @Test
-    void generateLightPhaseWorks2() {
+    void generateLightPhaseWorks2() throws InvalidTrafficLaneDirectionException {
         Intersection intersection = new Intersection();
 
         Road road = intersection.getRoad(RoadsDirection.NORTH);
@@ -152,7 +153,7 @@ class LightPhaseGeneratorTest {
     }
 
     @Test
-    void generateLightPhaseWorks3() {
+    void generateLightPhaseWorks3() throws InvalidTrafficLaneDirectionException {
         Intersection intersection = new Intersection();
 
         Road road = intersection.getRoad(RoadsDirection.NORTH);
@@ -174,7 +175,7 @@ class LightPhaseGeneratorTest {
     }
 
     @Test
-    void generateLightPhaseWorks4() {
+    void generateLightPhaseWorks4() throws InvalidTrafficLaneDirectionException {
         Intersection intersection = new Intersection();
 
         Road road = intersection.getRoad(RoadsDirection.NORTH);
@@ -202,7 +203,7 @@ class LightPhaseGeneratorTest {
     }
 
     @Test
-    void generateLightPhaseWorks5() {
+    void generateLightPhaseWorks5() throws InvalidTrafficLaneDirectionException {
         Intersection intersection = new Intersection();
 
         Road road = intersection.getRoad(RoadsDirection.NORTH);

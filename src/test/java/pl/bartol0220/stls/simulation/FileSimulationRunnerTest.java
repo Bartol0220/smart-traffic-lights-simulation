@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import pl.bartol0220.stls.exceptions.EmptyLightPhases;
+import pl.bartol0220.stls.exceptions.InvalidTrafficLaneDirectionException;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.lightControllers.AbstractLightController;
 import pl.bartol0220.stls.model.lightControllers.TimeLightController;
@@ -21,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FileSimulationRunnerTest {
     @Test
-    void FileHandlingWorks() throws EmptyLightPhases, IOException {
+    void FileHandlingWorks() throws EmptyLightPhases, IOException, InvalidTrafficLaneDirectionException {
         Path inputPath = Path.of("src/test/resources/testInput.json");
         Path outputPath = Path.of("src/test/resources/testOutput.json");
 

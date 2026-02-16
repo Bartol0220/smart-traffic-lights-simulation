@@ -1,6 +1,7 @@
 package pl.bartol0220.stls.model;
 
 import pl.bartol0220.stls.exceptions.IllegalVehicleDestination;
+import pl.bartol0220.stls.exceptions.InvalidTrafficLaneDirectionException;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 import pl.bartol0220.stls.model.vehicles.Vehicle;
 
@@ -20,16 +21,40 @@ public class Road {
         this.roadPriority = roadPriority;
     }
 
-    public void addTrafficLane(List<RoadsDirection> exitDirections, int lanePriority) {
+    private void checkForLanesCollisions() throws InvalidTrafficLaneDirectionException {
+        if (trafficLanes.size() < 2) return;
+
+        for (int i = 1; i < trafficLanes.size(); i++) {
+            TrafficLane leftLane = trafficLanes.get(i - 1);
+            TrafficLane rightLane = trafficLanes.get(i);
+
+            int maxWeightLeft = leftLane.getHighestDirectionWeight();
+            int minWeightRight = rightLane.getLowestDirectionWeight();
+
+            if (maxWeightLeft > minWeightRight) {
+                throw new InvalidTrafficLaneDirectionException();
+            }
+        }
+    }
+
+    public void addTrafficLane(List<RoadsDirection> exitDirections, int lanePriority) throws InvalidTrafficLaneDirectionException {
         TrafficLane trafficLane = new TrafficLane(trafficLaneIndex, lanePriority, entryDirection);
-        trafficLaneIndex++;
         for (RoadsDirection exitDirection : exitDirections) {
             trafficLane.addDirection(exitDirection);
         }
         trafficLanes.add(trafficLane);
+        trafficLanes.sort(TrafficLane.VISUAL_ORDER);
+
+        try {
+            checkForLanesCollisions();
+            trafficLaneIndex++;
+        } catch (InvalidTrafficLaneDirectionException e) {
+            trafficLanes.remove(trafficLane);
+            throw e;
+        }
     }
 
-    public void addTrafficLane(List<RoadsDirection> exitDirections) {
+    public void addTrafficLane(List<RoadsDirection> exitDirections) throws InvalidTrafficLaneDirectionException {
         addTrafficLane(exitDirections, roadPriority);
     }
 

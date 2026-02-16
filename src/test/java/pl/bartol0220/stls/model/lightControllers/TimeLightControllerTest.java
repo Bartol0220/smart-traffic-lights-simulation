@@ -2,6 +2,7 @@ package pl.bartol0220.stls.model.lightControllers;
 
 import org.junit.jupiter.api.Test;
 import pl.bartol0220.stls.exceptions.EmptyLightPhases;
+import pl.bartol0220.stls.exceptions.InvalidTrafficLaneDirectionException;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
 import pl.bartol0220.stls.model.TrafficLane;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TimeLightControllerTest {
 
     @Test
-    void timeLightControllerWorks0() {
+    void timeLightControllerWorks0() throws InvalidTrafficLaneDirectionException {
         Intersection intersection = new Intersection();
 
         Road road = intersection.getRoad(RoadsDirection.NORTH);
@@ -70,7 +71,7 @@ class TimeLightControllerTest {
     }
 
     @Test
-    void timeLightControllerWorks1() {
+    void timeLightControllerWorks1() throws InvalidTrafficLaneDirectionException {
         Intersection intersection = new Intersection();
 
         Road road = intersection.getRoad(RoadsDirection.NORTH);

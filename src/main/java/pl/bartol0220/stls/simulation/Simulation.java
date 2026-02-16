@@ -2,6 +2,7 @@ package pl.bartol0220.stls.simulation;
 
 import pl.bartol0220.stls.exceptions.EmptyLightPhases;
 import pl.bartol0220.stls.exceptions.IllegalVehicleDestination;
+import pl.bartol0220.stls.exceptions.InvalidTrafficLaneDirectionException;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
 import pl.bartol0220.stls.model.lightControllers.AbstractLightController;
@@ -33,19 +34,24 @@ public class Simulation {
                 RoadsDirection.WEST, 1
         ));
 
-        Road nortRoad = intersection.getRoad(RoadsDirection.NORTH);
-        nortRoad.addTrafficLane(List.of(RoadsDirection.EAST), 2);
-        nortRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST));
+        try {
+            Road nortRoad = intersection.getRoad(RoadsDirection.NORTH);
+            nortRoad.addTrafficLane(List.of(RoadsDirection.EAST), 2);
+            nortRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST));
 
-        Road southRoad = intersection.getRoad(RoadsDirection.SOUTH);
-        southRoad.addTrafficLane(List.of(RoadsDirection.WEST), 2);
-        southRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST));
+            Road southRoad = intersection.getRoad(RoadsDirection.SOUTH);
+            southRoad.addTrafficLane(List.of(RoadsDirection.WEST), 2);
+            southRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST));
 
-        Road eastRoad = intersection.getRoad(RoadsDirection.EAST);
-        eastRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST, RoadsDirection.NORTH));
+            Road eastRoad = intersection.getRoad(RoadsDirection.EAST);
+            eastRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST, RoadsDirection.NORTH));
 
-        Road westRoad = intersection.getRoad(RoadsDirection.WEST);
-        westRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST, RoadsDirection.SOUTH));
+            Road westRoad = intersection.getRoad(RoadsDirection.WEST);
+            westRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST, RoadsDirection.SOUTH));
+        } catch (InvalidTrafficLaneDirectionException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
 
         lightController = new TimeLightController(intersection);
         lightController.initLightController();

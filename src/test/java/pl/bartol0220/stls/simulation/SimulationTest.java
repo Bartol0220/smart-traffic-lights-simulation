@@ -3,6 +3,7 @@ package pl.bartol0220.stls.simulation;
 import org.junit.jupiter.api.Test;
 import pl.bartol0220.stls.exceptions.EmptyLightPhases;
 import pl.bartol0220.stls.exceptions.IllegalVehicleDestination;
+import pl.bartol0220.stls.exceptions.InvalidTrafficLaneDirectionException;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
 import pl.bartol0220.stls.model.lightControllers.*;
@@ -20,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SimulationTest {
 
     @Test
-    public void simulationWorks() throws EmptyLightPhases {
+    public void simulationWorks() throws EmptyLightPhases, InvalidTrafficLaneDirectionException {
         Intersection intersection = new Intersection(Map.of(
                 RoadsDirection.NORTH, 4,
                 RoadsDirection.SOUTH, 4,
@@ -81,7 +82,7 @@ class SimulationTest {
     }
 
     @Test
-    public void simulationWorks2() throws EmptyLightPhases {
+    public void simulationWorks2() throws EmptyLightPhases, InvalidTrafficLaneDirectionException {
         Intersection intersection = new Intersection(Map.of(
                 RoadsDirection.NORTH, 4,
                 RoadsDirection.SOUTH, 4,
