@@ -53,7 +53,7 @@ public class Simulation {
     public List<Vehicle> step() {
         List<Vehicle> leftVehicles = intersection.step();
         lightController.step();
-        return  leftVehicles;
+        return leftVehicles;
     }
 
     public void addVehicle(Vehicle vehicle) throws IllegalVehicleDestination {
