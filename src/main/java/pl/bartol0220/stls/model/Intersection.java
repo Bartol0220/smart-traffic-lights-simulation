@@ -1,11 +1,9 @@
 package pl.bartol0220.stls.model;
 
 import pl.bartol0220.stls.model.util.RoadsDirection;
+import pl.bartol0220.stls.model.vehicles.Vehicle;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Intersection {
     private final Map<RoadsDirection, Road> roads = new EnumMap<>(RoadsDirection.class);
@@ -13,6 +11,12 @@ public class Intersection {
     public Intersection() {
         for (RoadsDirection direction : RoadsDirection.values()){
             roads.put(direction, new Road(direction, 1));
+        }
+    }
+
+    public Intersection(Map<RoadsDirection, Integer> priorities) {
+        for (RoadsDirection direction : RoadsDirection.values()){
+            roads.put(direction, new Road(direction, priorities.get(direction)));
         }
     }
 
@@ -26,6 +30,14 @@ public class Intersection {
             result.addAll(roads.get(direction).getTrafficLanes());
         }
         return result;
+    }
+
+    public List<Vehicle> step() {
+        List<Vehicle> leftVehicles = new LinkedList<>();
+        for (RoadsDirection direction : RoadsDirection.values()) {
+            leftVehicles.addAll(roads.get(direction).step());
+        }
+        return leftVehicles;
     }
 
     @Override

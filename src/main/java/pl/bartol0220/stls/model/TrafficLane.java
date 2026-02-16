@@ -9,7 +9,7 @@ import java.util.*;
 
 public class TrafficLane {
     private final int index;
-    private final int roadPriority;
+    private final int lanePriority;
     private final RoadsDirection entryDirection;
     private final Set<RoadsDirection> exitDirections;
     private final Set<LaneType> laneType;
@@ -17,9 +17,9 @@ public class TrafficLane {
     private final TrafficLight trafficLight = new TrafficLight();
     private int vehiclesPriority = 0;
 
-    public TrafficLane(int index, int roadPriority, RoadsDirection entryDirection) {
+    public TrafficLane(int index, int lanePriority, RoadsDirection entryDirection) {
         this.index = index;
-        this.roadPriority = roadPriority;
+        this.lanePriority = lanePriority;
         this.entryDirection = entryDirection;
         exitDirections = EnumSet.noneOf(RoadsDirection.class);
         laneType = EnumSet.noneOf(LaneType.class);
@@ -35,8 +35,8 @@ public class TrafficLane {
         laneType.remove(exitDirection.getLaneType(entryDirection));
     }
 
-    public int getRoadPriority() {
-        return roadPriority;
+    public int getLanePriority() {
+        return lanePriority;
     }
 
     public RoadsDirection getEntryDirection() {
@@ -64,11 +64,13 @@ public class TrafficLane {
         return trafficLight;
     }
 
-    public Optional<Vehicle> nextVehicle() {
-        // TODO checking if light is green
-        Optional<Vehicle> vehicle = Optional.ofNullable(vehicles.poll());
-        vehiclesPriority -= vehicle.map(Vehicle::getPriority).orElse(0);
-        return vehicle;
+    public Optional<Vehicle> step() {
+        if (trafficLight.canVehiclePass()){
+            Optional<Vehicle> vehicle = Optional.ofNullable(vehicles.poll());
+            vehiclesPriority -= vehicle.map(Vehicle::getPriority).orElse(0);
+            return vehicle;
+        }
+        return Optional.empty();
     }
 
     public void changeLightToGreen() {

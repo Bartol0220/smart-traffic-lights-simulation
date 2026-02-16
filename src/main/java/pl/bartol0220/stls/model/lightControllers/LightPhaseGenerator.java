@@ -18,7 +18,7 @@ public class LightPhaseGenerator {
         while (!uncovered.isEmpty()) {
             TrafficLane trafficLane = uncovered
                     .stream()
-                    .max(Comparator.comparingInt(TrafficLane::getRoadPriority))
+                    .max(Comparator.comparingInt(TrafficLane::getLanePriority))
                     .orElseThrow();
 
             LightPhase phase = new LightPhase();
@@ -27,7 +27,7 @@ public class LightPhaseGenerator {
             Set<TrafficLane> blocked = new HashSet<>(collisionMap.get(trafficLane));
 
             List<TrafficLane> sortedUncovered = uncovered.stream()
-                    .sorted(Comparator.comparingInt(TrafficLane::getRoadPriority).reversed())
+                    .sorted(Comparator.comparingInt(TrafficLane::getLanePriority).reversed())
                     .toList();
 
             // add all possible uncovered lanes
@@ -43,7 +43,7 @@ public class LightPhaseGenerator {
             uncovered.removeAll(phase.getTrafficLanes());
 
             List<TrafficLane> sortedAll = allLanes.stream()
-                    .sorted(Comparator.comparingInt(TrafficLane::getRoadPriority).reversed())
+                    .sorted(Comparator.comparingInt(TrafficLane::getLanePriority).reversed())
                     .toList();
 
             // add all possible already covered lanes (maximize size)

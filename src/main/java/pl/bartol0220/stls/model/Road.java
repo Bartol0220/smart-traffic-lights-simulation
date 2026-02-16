@@ -6,6 +6,7 @@ import pl.bartol0220.stls.model.vehicles.Vehicle;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Road {
@@ -19,13 +20,17 @@ public class Road {
         this.roadPriority = roadPriority;
     }
 
-    public void addTrafficLane(List<RoadsDirection> exitDirections) {
-        TrafficLane trafficLane = new TrafficLane(trafficLaneIndex, roadPriority, entryDirection);
+    public void addTrafficLane(List<RoadsDirection> exitDirections, int lanePriority) {
+        TrafficLane trafficLane = new TrafficLane(trafficLaneIndex, lanePriority, entryDirection);
         trafficLaneIndex++;
         for (RoadsDirection exitDirection : exitDirections) {
             trafficLane.addDirection(exitDirection);
         }
         trafficLanes.add(trafficLane);
+    }
+
+    public void addTrafficLane(List<RoadsDirection> exitDirections) {
+        addTrafficLane(exitDirections, roadPriority);
     }
 
     public List<TrafficLane> getTrafficLanes() {
@@ -40,8 +45,16 @@ public class Road {
                 .orElseThrow(() -> new IllegalVehicleDestination(destination));
     }
 
+    public List<Vehicle> step() {
+        LinkedList<Vehicle> leftVehicles = new LinkedList<>();
+        for (TrafficLane trafficLane : trafficLanes) {
+            trafficLane.step().ifPresent(leftVehicles::add);
+        }
+        return leftVehicles;
+    }
+
     public void newVehicle(Vehicle vehicle) throws IllegalVehicleDestination {
-        TrafficLane trafficLane = findBestTrafficLane(entryDirection);
+        TrafficLane trafficLane = findBestTrafficLane(vehicle.getEndRoad());
         trafficLane.addVehicle(vehicle);
     }
 
