@@ -34,8 +34,8 @@ class TimeLightControllerTest {
 
             lightController.initLightController();
 
-            LightPhase firstLightPhase = lightController.lightPhases.getFirst();
-            LightPhase secondLightPhase = lightController.lightPhases.getLast();
+            LightPhase firstLightPhase = lightController.lightPhases.lightPhases().getFirst();
+            LightPhase secondLightPhase = lightController.lightPhases.lightPhases().getLast();
 
             for (TrafficLane trafficLane : firstLightPhase.getTrafficLanes()) {
                 assertTrue(trafficLane.getTrafficLight().canVehiclePass());
@@ -90,10 +90,10 @@ class TimeLightControllerTest {
 
             lightController.initLightController();
 
-            LightPhase firstLightPhase = lightController.lightPhases.getFirst();
-            LightPhase secondLightPhase = lightController.lightPhases.get(1);
-            LightPhase thirdLightPhase = lightController.lightPhases.get(2);
-            LightPhase fourthLightPhase = lightController.lightPhases.get(3);
+            LightPhase firstLightPhase = lightController.lightPhases.lightPhases().getFirst();
+            LightPhase secondLightPhase = lightController.lightPhases.lightPhases().get(1);
+            LightPhase thirdLightPhase = lightController.lightPhases.lightPhases().get(2);
+            LightPhase fourthLightPhase = lightController.lightPhases.lightPhases().get(3);
 
             for (TrafficLane trafficLane : firstLightPhase.getTrafficLanes()) {
                 assertTrue(trafficLane.getTrafficLight().canVehiclePass());

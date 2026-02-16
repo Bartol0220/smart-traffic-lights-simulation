@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class LightPhase {
-    private final Set<TrafficLane> trafficLanes = new HashSet<TrafficLane>();
+    private final Set<TrafficLane> trafficLanes = new HashSet<>();
 
     public void addTrafficLane(TrafficLane trafficLane) {
         trafficLanes.add(trafficLane);

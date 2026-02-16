@@ -3,10 +3,7 @@ package pl.bartol0220.stls;
 import pl.bartol0220.stls.exceptions.EmptyLightPhases;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
-import pl.bartol0220.stls.model.lightControllers.AbstractLightController;
-import pl.bartol0220.stls.model.lightControllers.LightPhase;
-import pl.bartol0220.stls.model.lightControllers.LightPhaseGenerator;
-import pl.bartol0220.stls.model.lightControllers.TimeLightController;
+import pl.bartol0220.stls.model.lightControllers.*;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 
 import java.util.List;
@@ -32,11 +29,9 @@ public class Main {
         System.out.println(intersection);
 
         LightPhaseGenerator lightPhaseGenerator = new LightPhaseGenerator();
-        List<LightPhase> lightPhases = lightPhaseGenerator.GenerateLightPhases(intersection);
+        LightPhaseSequence lightPhases = lightPhaseGenerator.generateLightPhases(intersection);
 
-        for (LightPhase lightPhase : lightPhases) {
-            System.out.println(lightPhase);
-        }
+        System.out.println(lightPhases);
 
         try {
             AbstractLightController lightController = new TimeLightController(intersection);

@@ -18,16 +18,16 @@ public class TimeLightController extends AbstractLightController {
 
     @Override
     public void initLightController() {
-        lightPhases.get(currentPhaseTime).changeLightToGreen();
+        lightPhases.lightPhases().get(currentPhaseTime).changeLightToGreen();
     }
 
     @Override
     public void step() {
         currentPhaseTime += 1;
         if (currentPhaseTime >= maxPhaseTime) {
-            lightPhases.get(currentPhaseIndex).changeLightToRed();
+            lightPhases.lightPhases().get(currentPhaseIndex).changeLightToRed();
             nextPhase();
-            lightPhases.get(currentPhaseIndex).changeLightToGreen();
+            lightPhases.lightPhases().get(currentPhaseIndex).changeLightToGreen();
         }
     }
 }

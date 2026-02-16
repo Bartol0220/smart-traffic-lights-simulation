@@ -64,16 +64,16 @@ class LightPhaseGeneratorTest {
         assertTrue(lightPhaseGenerator.checkPathCrossing(RoadsDirection.SOUTH, RoadsDirection.WEST, RoadsDirection.NORTH, RoadsDirection.WEST));
     }
 
-    private void testLanesCoverageAndCollisions(Intersection intersection, List<LightPhase> lightPhases, LightPhaseGenerator lightPhaseGenerator) {
+    private void testLanesCoverageAndCollisions(Intersection intersection, LightPhaseSequence lightPhases, LightPhaseGenerator lightPhaseGenerator) {
         Set<TrafficLane> allLanes = new HashSet<>(intersection.getAllLanes());
 
-        Set<TrafficLane> lanesInPhases = lightPhases.stream()
+        Set<TrafficLane> lanesInPhases = lightPhases.lightPhases().stream()
                 .flatMap(phase -> phase.getTrafficLanes().stream())
                 .collect(Collectors.toSet());
 
         assertEquals(allLanes, lanesInPhases);
 
-        for (LightPhase phase : lightPhases) {
+        for (LightPhase phase : lightPhases.lightPhases()) {
             List<TrafficLane> lanes = new ArrayList<>(phase.getTrafficLanes());
             for (int i = 0; i < lanes.size(); i++) {
                 for (int j = i + 1; j < lanes.size(); j++) {
@@ -102,7 +102,7 @@ class LightPhaseGeneratorTest {
         road.addTrafficLane(List.of(RoadsDirection.WEST));
 
         LightPhaseGenerator lightPhaseGenerator = new LightPhaseGenerator();
-        List<LightPhase> lightPhases = lightPhaseGenerator.GenerateLightPhases(intersection);
+        LightPhaseSequence lightPhases = lightPhaseGenerator.generateLightPhases(intersection);
 
         testLanesCoverageAndCollisions(intersection, lightPhases, lightPhaseGenerator);
     }
@@ -124,7 +124,7 @@ class LightPhaseGeneratorTest {
         road.addTrafficLane(List.of(RoadsDirection.EAST));
 
         LightPhaseGenerator lightPhaseGenerator = new LightPhaseGenerator();
-        List<LightPhase> lightPhases = lightPhaseGenerator.GenerateLightPhases(intersection);
+        LightPhaseSequence lightPhases = lightPhaseGenerator.generateLightPhases(intersection);
 
         testLanesCoverageAndCollisions(intersection, lightPhases, lightPhaseGenerator);
     }
@@ -146,7 +146,7 @@ class LightPhaseGeneratorTest {
         road.addTrafficLane(List.of(RoadsDirection.EAST));
 
         LightPhaseGenerator lightPhaseGenerator = new LightPhaseGenerator();
-        List<LightPhase> lightPhases = lightPhaseGenerator.GenerateLightPhases(intersection);
+        LightPhaseSequence lightPhases = lightPhaseGenerator.generateLightPhases(intersection);
 
         testLanesCoverageAndCollisions(intersection, lightPhases, lightPhaseGenerator);
     }
@@ -168,7 +168,7 @@ class LightPhaseGeneratorTest {
         road.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST, RoadsDirection.SOUTH));
 
         LightPhaseGenerator lightPhaseGenerator = new LightPhaseGenerator();
-        List<LightPhase> lightPhases = lightPhaseGenerator.GenerateLightPhases(intersection);
+        LightPhaseSequence lightPhases = lightPhaseGenerator.generateLightPhases(intersection);
 
         testLanesCoverageAndCollisions(intersection, lightPhases, lightPhaseGenerator);
     }
@@ -196,7 +196,7 @@ class LightPhaseGeneratorTest {
         road.addTrafficLane(List.of(RoadsDirection.EAST));
 
         LightPhaseGenerator lightPhaseGenerator = new LightPhaseGenerator();
-        List<LightPhase> lightPhases = lightPhaseGenerator.GenerateLightPhases(intersection);
+        LightPhaseSequence lightPhases = lightPhaseGenerator.generateLightPhases(intersection);
 
         testLanesCoverageAndCollisions(intersection, lightPhases, lightPhaseGenerator);
     }
@@ -224,7 +224,7 @@ class LightPhaseGeneratorTest {
         road.addTrafficLane(List.of(RoadsDirection.EAST, RoadsDirection.NORTH, RoadsDirection.SOUTH));
 
         LightPhaseGenerator lightPhaseGenerator = new LightPhaseGenerator();
-        List<LightPhase> lightPhases = lightPhaseGenerator.GenerateLightPhases(intersection);
+        LightPhaseSequence lightPhases = lightPhaseGenerator.generateLightPhases(intersection);
 
         testLanesCoverageAndCollisions(intersection, lightPhases, lightPhaseGenerator);
     }

@@ -8,7 +8,7 @@ import pl.bartol0220.stls.model.TrafficLane;
 import java.util.*;
 
 public class LightPhaseGenerator {
-    public List<LightPhase> GenerateLightPhases(Intersection intersection) {
+    public LightPhaseSequence generateLightPhases(Intersection intersection) {
         Set<LightPhase> lightPhases = new HashSet<>();
         List<TrafficLane> allLanes = intersection.getAllLanes();
         Map<TrafficLane, Set<TrafficLane>> collisionMap = getCollisionMap(allLanes);
@@ -59,7 +59,7 @@ public class LightPhaseGenerator {
             lightPhases.add(phase);
         }
 
-        return lightPhases.stream().toList();
+        return new LightPhaseSequence(lightPhases.stream().toList());
     }
 
     private Map<TrafficLane, Set<TrafficLane>> getCollisionMap(List<TrafficLane> allLanes) {

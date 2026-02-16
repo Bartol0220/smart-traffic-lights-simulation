@@ -5,6 +5,7 @@ import pl.bartol0220.stls.exceptions.IllegalVehicleDestination;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
 import pl.bartol0220.stls.model.lightControllers.AbstractLightController;
+import pl.bartol0220.stls.model.lightControllers.LightPhaseSequence;
 import pl.bartol0220.stls.model.lightControllers.TimeLightController;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 import pl.bartol0220.stls.model.vehicles.Car;
@@ -17,7 +18,7 @@ public class Simulation {
     private final Intersection intersection;
     private final AbstractLightController lightController;
 
-    public Simulation(Intersection intersection, AbstractLightController lightController) throws EmptyLightPhases {
+    public Simulation(Intersection intersection, AbstractLightController lightController) {
         this.intersection = intersection;
         this.lightController = lightController;
 
@@ -67,5 +68,9 @@ public class Simulation {
 
     public Intersection getIntersection() {
         return intersection;
+    }
+
+    public LightPhaseSequence getLightPhaseSequence() {
+        return lightController.getLightPhaseSequence();
     }
 }

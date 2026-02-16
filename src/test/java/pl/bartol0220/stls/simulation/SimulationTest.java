@@ -5,10 +5,7 @@ import pl.bartol0220.stls.exceptions.EmptyLightPhases;
 import pl.bartol0220.stls.exceptions.IllegalVehicleDestination;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
-import pl.bartol0220.stls.model.lightControllers.AbstractLightController;
-import pl.bartol0220.stls.model.lightControllers.LightPhase;
-import pl.bartol0220.stls.model.lightControllers.LightPhaseGenerator;
-import pl.bartol0220.stls.model.lightControllers.TimeLightController;
+import pl.bartol0220.stls.model.lightControllers.*;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 import pl.bartol0220.stls.model.vehicles.Car;
 import pl.bartol0220.stls.model.vehicles.Vehicle;
@@ -50,7 +47,7 @@ class SimulationTest {
         Simulation simulation = new Simulation(intersection, lightController);
 
         LightPhaseGenerator lightPhaseGenerator = new LightPhaseGenerator();
-        List<LightPhase> lightPhases = lightPhaseGenerator.GenerateLightPhases(intersection);
+        LightPhaseSequence lightPhases = lightPhaseGenerator.generateLightPhases(intersection);
 
         List<Vehicle> leftVehicles = simulation.step();
 
@@ -58,7 +55,7 @@ class SimulationTest {
 
         List<Vehicle> expectedLeftVehicles = new LinkedList<>();
 
-        lightPhases.getFirst().getTrafficLanes().forEach(trafficLane -> {
+        lightPhases.lightPhases().getFirst().getTrafficLanes().forEach(trafficLane -> {
             RoadsDirection entryDirection = trafficLane.getEntryDirection();
             Set<RoadsDirection> exitDirections = trafficLane.getExitDirections();
             RoadsDirection exitDirection = exitDirections.iterator().next();
@@ -115,7 +112,7 @@ class SimulationTest {
         Simulation simulation = new Simulation(intersection, lightController);
 
         LightPhaseGenerator lightPhaseGenerator = new LightPhaseGenerator();
-        List<LightPhase> lightPhases = lightPhaseGenerator.GenerateLightPhases(intersection);
+        LightPhaseSequence lightPhases = lightPhaseGenerator.generateLightPhases(intersection);
 
         List<Vehicle> leftVehicles = simulation.step();
 
@@ -123,7 +120,7 @@ class SimulationTest {
 
         List<Vehicle> expectedLeftVehicles = new LinkedList<>();
 
-        lightPhases.getFirst().getTrafficLanes().forEach(trafficLane -> {
+        lightPhases.lightPhases().getFirst().getTrafficLanes().forEach(trafficLane -> {
             RoadsDirection entryDirection = trafficLane.getEntryDirection();
             Set<RoadsDirection> exitDirections = trafficLane.getExitDirections();
             RoadsDirection exitDirection = exitDirections.iterator().next();
