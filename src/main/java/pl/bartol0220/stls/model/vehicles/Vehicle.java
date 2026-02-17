@@ -31,6 +31,10 @@ public abstract class Vehicle {
         return priority;
     }
 
+    public boolean isEmergencyVehicle() {
+        return false;
+    }
+
     @Override
     public String toString() {
         return id;

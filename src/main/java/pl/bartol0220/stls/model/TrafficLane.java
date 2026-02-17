@@ -16,6 +16,7 @@ public class TrafficLane {
     private final Queue<Vehicle> vehicles = new LinkedList<>();
     private final TrafficLight trafficLight = new TrafficLight();
     private int vehiclesPriority = 0;
+    private int numberOfEmergencyVehicles = 0;
 
     public TrafficLane(int index, int lanePriority, RoadsDirection entryDirection) {
         this.index = index;
@@ -55,9 +56,14 @@ public class TrafficLane {
         return vehiclesPriority;
     }
 
+    public boolean containsEmergencyVehicle() {
+        return numberOfEmergencyVehicles > 0;
+    }
+
     public void addVehicle(Vehicle vehicle) {
         vehicles.add(vehicle);
         vehiclesPriority = vehiclesPriority + vehicle.getPriority();
+        if (vehicle.isEmergencyVehicle()) numberOfEmergencyVehicles++;
     }
 
     public TrafficLight getTrafficLight() {
@@ -68,6 +74,7 @@ public class TrafficLane {
         if (trafficLight.canVehiclePass()){
             Optional<Vehicle> vehicle = Optional.ofNullable(vehicles.poll());
             vehiclesPriority -= vehicle.map(Vehicle::getPriority).orElse(0);
+            numberOfEmergencyVehicles -= vehicle.map(v -> v.isEmergencyVehicle() ? 1 : 0).orElse(0);
             return vehicle;
         }
         return Optional.empty();

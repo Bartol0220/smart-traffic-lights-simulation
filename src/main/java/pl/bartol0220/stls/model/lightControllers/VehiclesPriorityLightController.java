@@ -13,32 +13,25 @@ public class VehiclesPriorityLightController extends AbstractLightController {
     private final Map<LightPhase, Integer> lightPhasesIndex = new HashMap<>();
     private final int maxPhaseTime;
 
-    private void prepareDataStructures(Intersection intersection) {
+    private void prepareDataStructures() {
         for (TrafficLane lane : intersection.getAllLanes()) {
             waitingTimes.put(lane, 0);
             phasesWithTrafficLane.put(lane, new ArrayList<>());
         }
 
-        for (int i = 0; i < lightPhases.lightPhases().size(); i++) {
-            LightPhase lightPhase =  lightPhases.lightPhases().get(i);
-            lightPhasesIndex.put(lightPhase, i);
-
-            for (TrafficLane lane : lightPhase.getTrafficLanes()) {
-                phasesWithTrafficLane.get(lane).add(lightPhase);
-            }
-        }
+        indexLightPhases(lightPhases.lightPhases(), lightPhasesIndex, phasesWithTrafficLane);
     }
 
     public VehiclesPriorityLightController(Intersection intersection) throws EmptyLightPhases {
         super(intersection);
         this.maxPhaseTime = 5;
-        prepareDataStructures(intersection);
+        prepareDataStructures();
     }
 
     public VehiclesPriorityLightController(Intersection intersection, int maxPhaseTime) throws EmptyLightPhases {
         super(intersection);
         this.maxPhaseTime = maxPhaseTime;
-        prepareDataStructures(intersection);
+        prepareDataStructures();
     }
 
     @Override
