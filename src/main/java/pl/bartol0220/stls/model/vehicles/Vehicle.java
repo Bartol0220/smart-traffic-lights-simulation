@@ -2,6 +2,8 @@ package pl.bartol0220.stls.model.vehicles;
 
 import pl.bartol0220.stls.model.util.RoadsDirection;
 
+import java.util.Objects;
+
 public abstract class Vehicle {
     private final String id;
     private final RoadsDirection startRoad;
@@ -38,5 +40,16 @@ public abstract class Vehicle {
     @Override
     public String toString() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Vehicle vehicle)) return false;
+        return Objects.equals(id, vehicle.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

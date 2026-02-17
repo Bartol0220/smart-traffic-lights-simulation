@@ -56,6 +56,10 @@ public class TrafficLane {
         return vehiclesPriority;
     }
 
+    public int getNumberOfVehicles() {
+        return vehicles.size();
+    }
+
     public boolean containsEmergencyVehicle() {
         return numberOfEmergencyVehicles > 0;
     }
@@ -63,7 +67,7 @@ public class TrafficLane {
     public void addVehicle(Vehicle vehicle) {
         vehicles.add(vehicle);
         vehiclesPriority = vehiclesPriority + vehicle.getPriority();
-        if (vehicle.isEmergencyVehicle()) numberOfEmergencyVehicles++;
+        numberOfEmergencyVehicles += vehicle.isEmergencyVehicle() ? 1 : 0;
     }
 
     public TrafficLight getTrafficLight() {

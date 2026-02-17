@@ -67,11 +67,10 @@ public class EmergencyVehiclesLightController extends AbstractLightController {
         }
 
         int newPhaseIndex = lightPhasesIndex.get(bestLightPhase);
-
-        if (currentPhaseIndex != newPhaseIndex) {
-            lightPhases.lightPhases().get(currentPhaseIndex).changeLightToRed();
-            currentPhaseIndex = newPhaseIndex;
-            lightPhases.lightPhases().get(currentPhaseIndex).changeLightToGreen();
+        if (delegate.getCurrentPhaseIndex() != newPhaseIndex) {
+            delegate.getLightPhaseSequence().lightPhases().get(delegate.getCurrentPhaseIndex()).changeLightToRed();
+            delegate.setCurrentPhaseIndex(newPhaseIndex);
+            delegate.getLightPhaseSequence().lightPhases().get(delegate.getCurrentPhaseIndex()).changeLightToGreen();
         }
     }
 }

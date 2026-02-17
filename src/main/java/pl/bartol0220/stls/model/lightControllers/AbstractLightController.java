@@ -40,4 +40,12 @@ public abstract class AbstractLightController {
             }
         }
     }
+
+    public int getCurrentPhaseIndex() {
+        return currentPhaseIndex;
+    }
+
+    public void setCurrentPhaseIndex(int currentPhaseIndex) {
+        this.currentPhaseIndex = currentPhaseIndex;
+    }
 }
