@@ -14,10 +14,10 @@ public enum RoadsDirection {
 
     public String toString(){
         return switch (this) {
-            case NORTH -> "N";
-            case EAST -> "E";
-            case SOUTH -> "S";
-            case WEST -> "W";
+            case NORTH -> "North";
+            case EAST -> "East";
+            case SOUTH -> "South";
+            case WEST -> "West";
         };
     }
 

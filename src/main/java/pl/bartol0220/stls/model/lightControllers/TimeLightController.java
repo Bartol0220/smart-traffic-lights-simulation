@@ -5,6 +5,7 @@ import pl.bartol0220.stls.model.Intersection;
 
 public class TimeLightController extends AbstractLightController {
     private final int maxPhaseTime;
+    private int currentPhaseTime = 0;
 
     public TimeLightController(Intersection intersection) throws EmptyLightPhases {
         super(intersection);
@@ -14,6 +15,11 @@ public class TimeLightController extends AbstractLightController {
     public TimeLightController(Intersection intersection, int maxPhaseTime) throws EmptyLightPhases {
         super(intersection);
         this.maxPhaseTime = maxPhaseTime;
+    }
+
+    private void nextPhase() {
+        currentPhaseTime = 0;
+        currentPhaseIndex = (currentPhaseIndex + 1)  % lightPhases.lightPhases().size();
     }
 
     @Override

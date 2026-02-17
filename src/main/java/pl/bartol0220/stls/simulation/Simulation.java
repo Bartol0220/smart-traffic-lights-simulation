@@ -7,7 +7,7 @@ import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
 import pl.bartol0220.stls.model.lightControllers.AbstractLightController;
 import pl.bartol0220.stls.model.lightControllers.LightPhaseSequence;
-import pl.bartol0220.stls.model.lightControllers.TimeLightController;
+import pl.bartol0220.stls.model.lightControllers.VehiclesPriorityLightController;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 import pl.bartol0220.stls.model.vehicles.Car;
 import pl.bartol0220.stls.model.vehicles.Vehicle;
@@ -53,14 +53,13 @@ public class Simulation {
             System.exit(1);
         }
 
-        lightController = new TimeLightController(intersection);
+        lightController = new VehiclesPriorityLightController(intersection);
         lightController.initLightController();
     }
 
     public List<Vehicle> step() {
-        List<Vehicle> leftVehicles = intersection.step();
         lightController.step();
-        return leftVehicles;
+        return intersection.step();
     }
 
     public void addVehicle(Vehicle vehicle) throws IllegalVehicleDestination {
