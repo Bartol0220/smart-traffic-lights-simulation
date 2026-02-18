@@ -11,17 +11,18 @@ import java.nio.file.Path;
 
 public class MainFileHandlingSimulation {
     static void main(String[] args) {
+        Path rootPath = Path.of("").toAbsolutePath().getParent();
         Path inputPath;
         Path outputPath;
 
         if (args.length == 2) {
-            inputPath = Path.of(args[0]);
-            outputPath = Path.of(args[1]);
+            inputPath = rootPath.resolve(args[0]);
+            outputPath = rootPath.resolve(args[1]);
         } else {
             System.out.println("Usage: ./gradlew run --args=\"<input path> <output path>\"");
             System.out.println("Using default files from 'example/' folder.");
-            inputPath = Path.of("example/inputExample.json");
-            outputPath = Path.of("example/outputExample.json");
+            inputPath = rootPath.resolve("example", "inputExample.json");
+            outputPath = rootPath.resolve("example", "outputExample.json");
         }
         try {
             Simulation simulation = new Simulation();
