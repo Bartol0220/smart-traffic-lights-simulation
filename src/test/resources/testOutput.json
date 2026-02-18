@@ -1,0 +1,5 @@
+{
+  "stepStatuses" : [ {
+    "leftVehicles" : [ "v1", "v2" ]
+  } ]
+}
