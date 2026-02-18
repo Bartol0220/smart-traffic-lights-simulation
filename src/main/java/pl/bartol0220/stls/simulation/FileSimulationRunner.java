@@ -46,10 +46,10 @@ public class FileSimulationRunner implements Runnable {
             case SimulationCommand.AddVehicle vehicle -> {
                 try {
                     simulation.addVehicle(vehicle.vehicleId(), vehicle.startRoad(), vehicle.endRoad());
+                    notifyObserversOfNewVehicle(vehicle.vehicleId(), vehicle.startRoad(), vehicle.endRoad());
                 } catch (IllegalVehicleDestination e) {
                     System.err.println("Simulation input error for vehicle " + vehicle.vehicleId() + ": " + e.getMessage());
                 }
-                notifyObserversOfNewVehicle(vehicle.vehicleId(), vehicle.startRoad(), vehicle.endRoad());
             }
             case SimulationCommand.Step ignored ->  {
                 List<Vehicle> leftVehicles = simulation.step();

@@ -2,6 +2,6 @@ package pl.bartol0220.stls.exceptions;
 
 public class InvalidTrafficLaneDirectionException extends Exception {
     public InvalidTrafficLaneDirectionException() {
-        super();
+        super("Invalid traffic lane direction.");
     }
 }

@@ -13,10 +13,6 @@ public enum LightsColor {
         this.index = index;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
     public LightsColor nextColor() {
         return LIGHTS_COLORS[(index + 1) % LIGHTS_COLORS.length];
     }
