@@ -65,7 +65,7 @@ public abstract class AdvancedLightController extends AbstractLightController {
     protected void calculatePriorities() {
         int priority;
         for (TrafficLane lane : intersection.getAllLanes()) {
-            if (waitingTimes.get(lane) >= maxPhaseTime) {
+            if (waitingTimes.get(lane) >= maxPhaseTime && lane.getNumberOfVehicles() != 0) {
                 priority = Integer.MAX_VALUE;
             } else {
                 priority = calculatePriority(lane);

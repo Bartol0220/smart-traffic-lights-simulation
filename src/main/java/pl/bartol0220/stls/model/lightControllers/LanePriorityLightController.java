@@ -16,7 +16,7 @@ public class LanePriorityLightController extends AdvancedLightController {
     @Override
     protected int calculatePriority(TrafficLane lane) {
         if (lane.getNumberOfVehicles() == 0) {
-            return (int) Math.round(lane.getVehiclesPriority() * Math.max(waitingTimes.get(lane) * 0.5, 1));
+            return lane.getVehiclesPriority();
         }
         return (int) Math.round((lane.getVehiclesPriority() + lane.getLanePriority()) * Math.max(waitingTimes.get(lane) * 0.5, 1));
     }
