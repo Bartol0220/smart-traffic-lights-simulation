@@ -1,5 +1,6 @@
 package pl.bartol0220.stls.model.vehicles;
 
+import pl.bartol0220.stls.dto.VehicleType;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 
 public class Ambulance extends Vehicle{
@@ -10,5 +11,10 @@ public class Ambulance extends Vehicle{
     @Override
     public boolean isEmergencyVehicle() {
         return true;
+    }
+
+    @Override
+    public VehicleType getVehicleType() {
+        return VehicleType.AMBULANCE;
     }
 }

@@ -54,7 +54,7 @@ class FileSimulationRunnerTest {
     }
 
     @Test
-    void testRunnerWithNonexistentFile() throws EmptyLightPhases {
+    void testRunnerWithNonexistentFile() throws EmptyLightPhases, InvalidTrafficLaneDirectionException {
         Path inputPath = Path.of("src/test/resources/nonexistentFile.json");
 
         Simulation simulation = new Simulation();

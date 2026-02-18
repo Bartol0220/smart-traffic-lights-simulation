@@ -1,6 +1,7 @@
 package pl.bartol0220.stls;
 
 import pl.bartol0220.stls.exceptions.EmptyLightPhases;
+import pl.bartol0220.stls.exceptions.InvalidTrafficLaneDirectionException;
 import pl.bartol0220.stls.observers.ConsoleSimulationPresenter;
 import pl.bartol0220.stls.observers.OutputFileMaker;
 import pl.bartol0220.stls.observers.SimulationObserver;
@@ -36,7 +37,7 @@ public class MainFileHandlingSimulation {
 
             Thread simulationThread = new Thread(runner);
             simulationThread.start();
-        } catch (EmptyLightPhases e) {
+        } catch (EmptyLightPhases | InvalidTrafficLaneDirectionException e) {
             System.err.println(e.getMessage());
         }
     }

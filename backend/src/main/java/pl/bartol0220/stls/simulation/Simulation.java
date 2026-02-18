@@ -26,32 +26,27 @@ public class Simulation {
         this.lightController.initLightController();
     }
 
-    public Simulation() throws EmptyLightPhases {
+    public Simulation() throws EmptyLightPhases, InvalidTrafficLaneDirectionException {
         intersection = new Intersection(Map.of(
                 RoadsDirection.NORTH, 4,
                 RoadsDirection.SOUTH, 4,
                 RoadsDirection.EAST, 1,
                 RoadsDirection.WEST, 1
         ));
+        
+        Road nortRoad = intersection.getRoad(RoadsDirection.NORTH);
+        nortRoad.addTrafficLane(List.of(RoadsDirection.EAST), 2);
+        nortRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST));
 
-        try {
-            Road nortRoad = intersection.getRoad(RoadsDirection.NORTH);
-            nortRoad.addTrafficLane(List.of(RoadsDirection.EAST), 2);
-            nortRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST));
+        Road southRoad = intersection.getRoad(RoadsDirection.SOUTH);
+        southRoad.addTrafficLane(List.of(RoadsDirection.WEST), 2);
+        southRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST));
 
-            Road southRoad = intersection.getRoad(RoadsDirection.SOUTH);
-            southRoad.addTrafficLane(List.of(RoadsDirection.WEST), 2);
-            southRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST));
+        Road eastRoad = intersection.getRoad(RoadsDirection.EAST);
+        eastRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST, RoadsDirection.NORTH));
 
-            Road eastRoad = intersection.getRoad(RoadsDirection.EAST);
-            eastRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST, RoadsDirection.NORTH));
-
-            Road westRoad = intersection.getRoad(RoadsDirection.WEST);
-            westRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST, RoadsDirection.SOUTH));
-        } catch (InvalidTrafficLaneDirectionException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
+        Road westRoad = intersection.getRoad(RoadsDirection.WEST);
+        westRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST, RoadsDirection.SOUTH));
 
         lightController = new VehiclesPriorityLightController(intersection);
         lightController.initLightController();

@@ -24,4 +24,8 @@ public class TrafficLight {
     public String toString() {
         return "TL: " + color.toString();
     }
+
+    public LightsColor getColor() {
+        return color;
+    }
 }

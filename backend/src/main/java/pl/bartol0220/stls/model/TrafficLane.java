@@ -159,4 +159,8 @@ public class TrafficLane {
 
         return Integer.compare(types1.size(), types2.size());
     };
+
+    public List<Vehicle> getVehicles() {
+        return vehicles.stream().toList();
+    }
 }
