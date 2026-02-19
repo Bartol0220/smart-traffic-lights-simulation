@@ -6,6 +6,7 @@ import pl.bartol0220.stls.dto.VehicleDto;
 
 @RestController
 @RequestMapping("/simulation")
+@CrossOrigin(origins = "*")
 public class SimulationController {
     private final SimulationService service;
 

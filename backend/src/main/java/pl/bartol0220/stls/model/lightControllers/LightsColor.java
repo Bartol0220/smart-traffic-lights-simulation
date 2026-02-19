@@ -20,7 +20,7 @@ public enum LightsColor {
     public String toString() {
         return switch (this)  {
             case RED -> "Red";
-            case RED_YELLOW -> "Red + Yellow";
+            case RED_YELLOW -> "Red_Yellow";
             case GREEN -> "Green";
             case YELLOW -> "Yellow";
         };

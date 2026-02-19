@@ -14,7 +14,7 @@ import java.util.List;
 
 public class WebAppSimulationRunner {
     private final Simulation simulation;
-    private int step;
+    private int stepCounter = 0;
 
     public WebAppSimulationRunner(Simulation simulation) {
         this.simulation = simulation;
@@ -43,7 +43,7 @@ public class WebAppSimulationRunner {
         }
 
         IntersectionDto intersectionDto = new IntersectionDto(roads);
-        return new SimulationDto(intersectionDto, step, leftVehiclesDto);
+        return new SimulationDto(intersectionDto, stepCounter, leftVehiclesDto);
     }
 
     private List<TrafficLaneDto> getTrafficLaneDtos(Road road) {
@@ -72,6 +72,7 @@ public class WebAppSimulationRunner {
     }
 
     public SimulationDto step() {
+        stepCounter++;
         List<Vehicle> leftVehicles = simulation.step();
         return buildSimulationDto(leftVehicles);
     }
