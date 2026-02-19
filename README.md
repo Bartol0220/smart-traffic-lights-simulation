@@ -89,7 +89,7 @@ The output file records the state of the simulation after every step.
 
 **Structure:**
 - `stepStatuses`: An array of objects, where each object represents the outcome of a single simulation step.
-  - `leftVehicles`: A list of vehicleIds for vehicles that have exited (left) the intersection during that specific step.
+  - `leftVehicles`: A list of IDs for vehicles that have left the intersection during that specific step.
 
 **Output example:**
 ```json
@@ -121,10 +121,12 @@ changing the active phase every fixed number of steps.
 ### Vehicles priority light controller
 
 More complicated controller that calculates priority for every lane. The priority is calculated using the following formula:
-$$ P(l) = Vp(l) \cdot max(T(l) \cdot 0.5, 1) $$
+```math
+P(l) = V_p(l) \cdot max(T(l) \cdot 0.5, 1)
+```
 Where:
 - $P(l)$ is final priority of lane $l$,
-- $Vp(l)$ is sum of the priority values of all vehicles currently waiting in lane $l$,
+- $V_p(l)$ is sum of the priority values of all vehicles currently waiting in lane $l$,
 - $T(l)$ is the waiting time (number of steps the lane has had a red light).
 
 A maximum wait time limit can be applied. If a lane's red light duration exceeds this limit, the lane automatically receives
@@ -134,11 +136,13 @@ maximum priority to prevent starvation.
 
 Similar to the Vehicle Priority controller but incorporates a static weight for specific traffic lanes (e.g., to prioritize main roads over side streets).
 The priority is calculated as:
-$$ (Vp(l) + Lp(l)) \cdot max(T(l) \cdot 0.5, 1) $$
+```math
+P(l) = (V_p(l) + L_p(l)) \cdot max(T(l) \cdot 0.5, 1)
+```
 Where:
 - $P(l)$ is final priority of lane $l$,
-- $Vp(l)$ is sum of the priority values of all vehicles currently waiting in lane $l$,
-- $Lp(l)$  is the static priority assigned to lane $l$,
+- $V_p(l)$ is sum of the priority values of all vehicles currently waiting in lane $l$,
+- $L_p(l)$  is the static priority assigned to lane $l$,
 - $T(l)$ is the waiting time (number of steps the lane has had a red light).
 
 Like the previous controller, a maximum wait time mechanism ensures that side roads eventually get a green light.
@@ -151,7 +155,7 @@ relevant lane until the vehicle has passed the intersection.
 
 ## Testing
 
-The project unit tests to ensure the reliability of traffic light algorithms, simulation logic, and file handling mechanisms.
+The project unit tests were created to ensure the reliability of traffic light algorithms, simulation logic, and file handling mechanisms.
 
 ### Running Tests
 To execute all unit tests, use the following command:
