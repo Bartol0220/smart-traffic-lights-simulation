@@ -30,3 +30,7 @@ test {
 application {
     mainClass = 'pl.bartol0220.stls.MainFileHandlingSimulation'
 }
+
+bootRun {
+    mainClass = 'pl.bartol0220.stls.SmartTrafficLightsSimulationApplication'
+}
