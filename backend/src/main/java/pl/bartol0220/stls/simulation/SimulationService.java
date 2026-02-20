@@ -95,7 +95,7 @@ public class SimulationService {
     public Object addLane(AddLaneDto addLaneDto) {
         try {
             if (addLaneDto.exitDirections().isEmpty()) throw new NoExitDirectionForLane();
-            simulationConfig.addLane(addLaneDto.entryDirection(), addLaneDto.exitDirections(), addLaneDto.lanePriority());
+            simulationConfig.addLane(addLaneDto.entryDirection(), addLaneDto.exitDirections(), addLaneDto.lanePriority(), addLaneDto.addOpositeLane());
         } catch (InvalidTrafficLaneDirectionException | NoExitDirectionForLane | MaxNumberOfLanesException | LanePriorityLimit e) {
             return new ErrorDto(e.getMessage());
         }

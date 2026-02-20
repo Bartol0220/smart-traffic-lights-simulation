@@ -7,5 +7,6 @@ import java.util.List;
 public record AddLaneDto(
         RoadsDirection entryDirection,
         List<RoadsDirection> exitDirections,
-        int lanePriority
+        int lanePriority,
+        boolean addOpositeLane
 ) {}

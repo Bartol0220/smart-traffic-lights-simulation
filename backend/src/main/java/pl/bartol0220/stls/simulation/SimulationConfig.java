@@ -35,13 +35,23 @@ public class SimulationConfig {
         }
     }
 
-    public void addLane(RoadsDirection entryDirection, List<RoadsDirection> exitDirections, int lanePriority) throws InvalidTrafficLaneDirectionException, MaxNumberOfLanesException, LanePriorityLimit {
-        if (lanePriority > MAX_LANE_PRIORITY || lanePriority < MIN_LANE_PRIORITY)
+    public void addLane(RoadsDirection entryDirection, List<RoadsDirection> exitDirections, int lanePriority, boolean addOpositeLane) throws InvalidTrafficLaneDirectionException, MaxNumberOfLanesException, LanePriorityLimit {
+        if (lanePriority > MAX_LANE_PRIORITY || lanePriority < MIN_LANE_PRIORITY) {
             throw new LanePriorityLimit(MIN_LANE_PRIORITY, MAX_LANE_PRIORITY);
+        }
         Road road = intersection.getRoad(entryDirection);
         if (road.getTrafficLanes().size() >= MAX_NUMBER_OF_LANES) {
             throw new MaxNumberOfLanesException(entryDirection);
         }
+
+        if (addOpositeLane) {
+            Road oppositeRoad = intersection.getRoad(entryDirection.getOpposite());
+            if (road.getTrafficLanes().size() >= MAX_NUMBER_OF_LANES) {
+                throw new MaxNumberOfLanesException(entryDirection.getOpposite());
+            }
+            oppositeRoad.addTrafficLane(entryDirection.applyTurnTo(entryDirection.getOpposite(), exitDirections), lanePriority);
+        }
+
         road.addTrafficLane(exitDirections, lanePriority);
     }
 

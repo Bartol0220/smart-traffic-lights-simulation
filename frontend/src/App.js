@@ -354,7 +354,8 @@ const LaneConfiguration = ({ onNext, onBack }) => {
   const [addLaneForm, setAddLaneForm] = useState({
     entryDirection: 'North',
     lanePriority: 1,
-    exitDirections: ['South']
+    exitDirections: ['South'],
+    addOpositeLane: false,
   });
 
   const [intersectionType, setIntersectionType] = useState('Simple intersection');
@@ -417,7 +418,8 @@ const LaneConfiguration = ({ onNext, onBack }) => {
     const payload = {
         entryDirection: addLaneForm.entryDirection, 
         lanePriority: parseInt(addLaneForm.lanePriority),
-        exitDirections: addLaneForm.exitDirections 
+        exitDirections: addLaneForm.exitDirections,
+        addOpositeLane: addLaneForm.addOpositeLane
     };
 
     try {
@@ -586,6 +588,16 @@ const LaneConfiguration = ({ onNext, onBack }) => {
                     </label>
                 ))}
             </div>
+        </div>
+        <div className="input-group checkbox-group" style={{marginTop: '15px'}}>
+            <label title="Adds a symmetrical lane from the opposite direction">
+                <input 
+                    type="checkbox" 
+                    checked={addLaneForm.addOpositeLane}
+                    onChange={(e) => setAddLaneForm({...addLaneForm, addOpositeLane: e.target.checked})}
+                />
+                Add Opposite Lane
+            </label>
         </div>
         <button className="add-btn" onClick={handleAddLane} style={{width:'100%', marginTop:'10px'}}>Add Lane</button>
 

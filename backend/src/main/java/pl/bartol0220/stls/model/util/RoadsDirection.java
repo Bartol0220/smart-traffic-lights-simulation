@@ -1,5 +1,8 @@
 package pl.bartol0220.stls.model.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum RoadsDirection {
     NORTH(0),
     EAST(1),
@@ -29,6 +32,22 @@ public enum RoadsDirection {
             case 3 -> LaneType.LEFT;
             default -> LaneType.U_TURN;
         };
+    }
+
+    public RoadsDirection getOpposite() {
+        return RoadsDirection.values()[(this.index + 2) % 4];
+    }
+
+    public List<RoadsDirection> applyTurnTo( RoadsDirection seconLaneEntry, List<RoadsDirection> exitDirections) {
+        List<RoadsDirection> result = new ArrayList<>();
+
+        for (RoadsDirection direction : exitDirections) {
+            int diff = (direction.index - this.index + 4) % 4;
+            RoadsDirection newDirection = RoadsDirection.values()[(seconLaneEntry.index + diff) % 4];
+            result.add(newDirection);
+        }
+
+        return result;
     }
 
     public boolean isOpposite(RoadsDirection other) {
