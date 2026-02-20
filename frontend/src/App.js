@@ -502,6 +502,7 @@ const LaneConfiguration = ({ onNext, onBack }) => {
                 <option value="TIME">Time Based</option>
                 <option value="VEHICLES_PRIORITY">Vehicle Priority</option>
                 <option value="LANE_PRIORITY">Lane Priority</option>
+                <option value="PHASE_PRIORITY">Phase Priority</option>
             </select>
         </div>
         <div className="input-group checkbox-group">

@@ -10,6 +10,7 @@ public class DelegateLightControllerFactory {
             case TIME -> new TimeLightController(intersection, maxPhaseTime);
             case VEHICLES_PRIORITY -> new VehiclesPriorityLightController(intersection, maxPhaseTime);
             case LANE_PRIORITY -> new LanePriorityLightController(intersection, maxPhaseTime);
+            case PHASE_PRIORITY -> new PhasePriorityLightController(intersection, maxPhaseTime);
         };
     }
 }

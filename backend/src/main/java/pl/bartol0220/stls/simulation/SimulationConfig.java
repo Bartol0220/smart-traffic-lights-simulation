@@ -25,12 +25,7 @@ public class SimulationConfig {
     }
 
     public SimulationConfig() {
-        intersection = new Intersection(Map.of(
-                RoadsDirection.NORTH, 4,
-                RoadsDirection.SOUTH, 4,
-                RoadsDirection.EAST, 1,
-                RoadsDirection.WEST, 1
-        ));
+        intersection = new Intersection();
     }
 
     public void addLane(RoadsDirection entryDirection, List<RoadsDirection> exitDirections, int lanePriority) throws InvalidTrafficLaneDirectionException, MaxNumberOfLanesException, LanePriorityLimit {
