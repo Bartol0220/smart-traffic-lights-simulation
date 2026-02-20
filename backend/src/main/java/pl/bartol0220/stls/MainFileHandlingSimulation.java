@@ -2,11 +2,13 @@ package pl.bartol0220.stls;
 
 import pl.bartol0220.stls.exceptions.EmptyLightPhases;
 import pl.bartol0220.stls.exceptions.InvalidTrafficLaneDirectionException;
+import pl.bartol0220.stls.exceptions.MaxPhaseTimeLimit;
 import pl.bartol0220.stls.observers.ConsoleSimulationPresenter;
 import pl.bartol0220.stls.observers.OutputFileMaker;
 import pl.bartol0220.stls.observers.SimulationObserver;
 import pl.bartol0220.stls.simulation.FileSimulationRunner;
 import pl.bartol0220.stls.simulation.Simulation;
+import pl.bartol0220.stls.simulation.SimulationConfig;
 
 import java.nio.file.Path;
 
@@ -26,19 +28,25 @@ public class MainFileHandlingSimulation {
             outputPath = rootPath.resolve("example", "outputExample.json");
         }
         try {
-            Simulation simulation = new Simulation();
-
-            FileSimulationRunner runner = new FileSimulationRunner(simulation, inputPath);
-
-            SimulationObserver consoleSimulationPresenter = new ConsoleSimulationPresenter();
-            SimulationObserver outputFileMaker = new OutputFileMaker(outputPath);
-            runner.registerObserver(consoleSimulationPresenter);
-            runner.registerObserver(outputFileMaker);
-
-            Thread simulationThread = new Thread(runner);
+            Thread simulationThread = prepareSimulationThread(inputPath, outputPath);
             simulationThread.start();
-        } catch (EmptyLightPhases | InvalidTrafficLaneDirectionException e) {
+        } catch (EmptyLightPhases | InvalidTrafficLaneDirectionException | MaxPhaseTimeLimit e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    private static Thread prepareSimulationThread(Path inputPath, Path outputPath) throws InvalidTrafficLaneDirectionException, MaxPhaseTimeLimit, EmptyLightPhases {
+        SimulationConfig simulationConfig = new SimulationConfig();
+        simulationConfig.prepareDefaultSimulation();
+        Simulation simulation = simulationConfig.makeSimulation();
+
+        FileSimulationRunner runner = new FileSimulationRunner(simulation, inputPath);
+
+        SimulationObserver consoleSimulationPresenter = new ConsoleSimulationPresenter();
+        SimulationObserver outputFileMaker = new OutputFileMaker(outputPath);
+        runner.registerObserver(consoleSimulationPresenter);
+        runner.registerObserver(outputFileMaker);
+
+        return new Thread(runner);
     }
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import pl.bartol0220.stls.exceptions.EmptyLightPhases;
 import pl.bartol0220.stls.exceptions.InvalidTrafficLaneDirectionException;
+import pl.bartol0220.stls.exceptions.MaxPhaseTimeLimit;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.lightControllers.AbstractLightController;
 import pl.bartol0220.stls.model.lightControllers.TimeLightController;
@@ -54,10 +55,12 @@ class FileSimulationRunnerTest {
     }
 
     @Test
-    void testRunnerWithNonexistentFile() throws EmptyLightPhases, InvalidTrafficLaneDirectionException {
+    void testRunnerWithNonexistentFile() throws EmptyLightPhases, InvalidTrafficLaneDirectionException, MaxPhaseTimeLimit {
         Path inputPath = Path.of("src/test/resources/nonexistentFile.json");
 
-        Simulation simulation = new Simulation();
+        SimulationConfig simulationConfig = new SimulationConfig();
+        simulationConfig.prepareDefaultSimulation();
+        Simulation simulation = simulationConfig.makeSimulation();
 
         FileSimulationRunner runner = new FileSimulationRunner(simulation, inputPath);
 
