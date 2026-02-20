@@ -163,4 +163,8 @@ public class TrafficLane {
     public List<Vehicle> getVehicles() {
         return vehicles.stream().toList();
     }
+
+    public int getIndex() {
+        return index;
+    }
 }

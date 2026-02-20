@@ -5,10 +5,7 @@ import pl.bartol0220.stls.exceptions.InvalidTrafficLaneDirectionException;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 import pl.bartol0220.stls.model.vehicles.Vehicle;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Road {
     private final int roadPriority;
@@ -56,6 +53,11 @@ public class Road {
 
     public void addTrafficLane(List<RoadsDirection> exitDirections) throws InvalidTrafficLaneDirectionException {
         addTrafficLane(exitDirections, roadPriority);
+    }
+
+    public void removeTrafficLane(int index) {
+        TrafficLane lane = new TrafficLane(index, 0, entryDirection);
+        trafficLanes.remove(lane);
     }
 
     public List<TrafficLane> getTrafficLanes() {

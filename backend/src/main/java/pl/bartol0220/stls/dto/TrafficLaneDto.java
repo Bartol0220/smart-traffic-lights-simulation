@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 public record TrafficLaneDto(
+        int index,
         int lanePriority,
         RoadsDirection entryDirection,
         Set<RoadsDirection> exitDirections,
