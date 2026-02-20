@@ -6,14 +6,15 @@ import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
 import pl.bartol0220.stls.model.TrafficLane;
 import pl.bartol0220.stls.model.util.RoadsDirection;
-import pl.bartol0220.stls.model.vehicles.Car;
 import pl.bartol0220.stls.model.vehicles.Vehicle;
+import pl.bartol0220.stls.model.vehicles.VehicleFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WebAppSimulationRunner {
     private final Simulation simulation;
+    private final VehicleFactory vehicleFactory = new VehicleFactory();
     private int stepCounter = 0;
 
     public WebAppSimulationRunner(Simulation simulation) {
@@ -46,7 +47,7 @@ public class WebAppSimulationRunner {
         return new SimulationDto(intersectionDto, stepCounter, leftVehiclesDto);
     }
 
-    private List<TrafficLaneDto> getTrafficLaneDtos(Road road) {
+    public static List<TrafficLaneDto> getTrafficLaneDtos(Road road) {
         List<TrafficLaneDto> trafficLanes = new ArrayList<>();
 
         for (TrafficLane lane : road.getTrafficLanes()) {
@@ -60,6 +61,7 @@ public class WebAppSimulationRunner {
                     .toList();
 
             trafficLanes.add(new TrafficLaneDto(
+                    lane.getIndex(),
                     lane.getLanePriority(),
                     lane.getEntryDirection(),
                     lane.getExitDirections(),
@@ -77,8 +79,8 @@ public class WebAppSimulationRunner {
         return buildSimulationDto(leftVehicles);
     }
 
-    public SimulationDto addVehicle(String vehicleId, RoadsDirection startRoad, RoadsDirection endRoad) throws IllegalVehicleDestination {
-        Vehicle vehicle = new Car(vehicleId, startRoad, endRoad);
+    public SimulationDto addVehicle(VehicleType vehicleType, String vehicleId, RoadsDirection startRoad, RoadsDirection endRoad) throws IllegalVehicleDestination {
+        Vehicle vehicle = vehicleFactory.create(vehicleType, vehicleId, startRoad, endRoad);
         simulation.addVehicle(vehicle);
         return buildSimulationDto();
     }

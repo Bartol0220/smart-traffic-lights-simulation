@@ -6,7 +6,7 @@ import pl.bartol0220.stls.model.TrafficLane;
 
 import java.util.*;
 
-public abstract class AdvancedLightController extends AbstractLightController {
+public abstract class AdvancedLightController extends AbstractDelegateLightController {
     protected final Map<TrafficLane, Integer> waitingTimes = new HashMap<>();
     protected final Map<TrafficLane, Integer> currentPriorities = new HashMap<>();
     protected final Map<TrafficLane, List<LightPhase>> phasesWithTrafficLane = new HashMap<>();

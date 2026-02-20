@@ -3,7 +3,7 @@ package pl.bartol0220.stls.model.lightControllers;
 import pl.bartol0220.stls.exceptions.EmptyLightPhases;
 import pl.bartol0220.stls.model.Intersection;
 
-public class TimeLightController extends AbstractLightController {
+public class TimeLightController extends AbstractDelegateLightController {
     private final int maxPhaseTime;
     private int currentPhaseTime = 0;
 

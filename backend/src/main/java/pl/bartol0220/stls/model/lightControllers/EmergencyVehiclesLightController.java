@@ -19,7 +19,7 @@ public class EmergencyVehiclesLightController extends AbstractLightController {
         indexLightPhases(lightPhases.lightPhases(), lightPhasesIndex, phasesWithTrafficLane);
     }
 
-    public EmergencyVehiclesLightController(AbstractLightController delegate) throws EmptyLightPhases {
+    public EmergencyVehiclesLightController(AbstractDelegateLightController delegate) throws EmptyLightPhases {
         super(delegate.intersection);
         this.delegate = delegate;
         prepareDataStructures();

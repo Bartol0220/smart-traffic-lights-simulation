@@ -28,4 +28,14 @@ public class SimulationController {
     public SimulationDto getSimulationState() {
         return service.getCurrentState();
     }
+
+    @PostMapping("/init/default")
+    public Object initDefaultSimulation() {
+        return service.newDefaultSimulation();
+    }
+
+    @PostMapping("/init")
+    public Object init() {
+        return service.initSimulation();
+    }
 }
