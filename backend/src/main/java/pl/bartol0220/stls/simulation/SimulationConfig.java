@@ -3,6 +3,7 @@ package pl.bartol0220.stls.simulation;
 import pl.bartol0220.stls.exceptions.*;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
+import pl.bartol0220.stls.model.TrafficLane;
 import pl.bartol0220.stls.model.lightControllers.*;
 import pl.bartol0220.stls.model.util.DelegateLightControllerType;
 import pl.bartol0220.stls.model.util.RoadsDirection;
@@ -26,6 +27,12 @@ public class SimulationConfig {
 
     public SimulationConfig() {
         intersection = new Intersection();
+    }
+
+    public void removeAllLines() {
+        for (TrafficLane lane : intersection.getAllLanes()) {
+            removeLane(lane.getEntryDirection(), lane.getIndex());
+        }
     }
 
     public void addLane(RoadsDirection entryDirection, List<RoadsDirection> exitDirections, int lanePriority) throws InvalidTrafficLaneDirectionException, MaxNumberOfLanesException, LanePriorityLimit {

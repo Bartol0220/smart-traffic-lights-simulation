@@ -146,7 +146,7 @@ public class SimulationService {
 
     public Object prepareIntersection(IntersectionType type) {
         try {
-            simulationConfig = new SimulationConfig();
+            simulationConfig.removeAllLines();
             type.prepareIntersection(simulationConfig);
         } catch (InvalidTrafficLaneDirectionException e) {
             return new ErrorDto(e.getMessage());
