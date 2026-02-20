@@ -7,6 +7,14 @@ The project supports two execution modes:
 1. Terminal (file-based) mode
 2. Web application mode
 
+## Screenshots
+
+### Configuration View
+![Configuration View](assets/configuration-view.png)
+
+### Simulation View
+![Simulation View](assets/simulation-view.png)
+
 ## Requirements
 
 #### Terminal mode
