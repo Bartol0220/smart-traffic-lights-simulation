@@ -1,6 +1,6 @@
 package pl.bartol0220.stls.model.vehicles;
 
-import pl.bartol0220.stls.dto.VehicleType;
+import pl.bartol0220.stls.model.util.VehicleType;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 
 public class VehicleFactory {

@@ -1,4 +1,4 @@
-package pl.bartol0220.stls.dto;
+package pl.bartol0220.stls.model.util;
 
 public enum VehicleType {
     CAR,

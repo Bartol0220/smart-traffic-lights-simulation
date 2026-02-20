@@ -1,4 +1,4 @@
-package pl.bartol0220.stls.model.lightControllers;
+package pl.bartol0220.stls.model.lightControllers.phase;
 
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.util.LaneType;
@@ -83,7 +83,7 @@ public class LightPhaseGenerator {
         return collisionMap;
     }
 
-    boolean checkCollision(TrafficLane tl1, TrafficLane tl2) {
+    public boolean checkCollision(TrafficLane tl1, TrafficLane tl2) {
         RoadsDirection tl1EntryDirection = tl1.getEntryDirection();
         RoadsDirection tl2EntryDirection = tl2.getEntryDirection();
 
@@ -109,7 +109,7 @@ public class LightPhaseGenerator {
         return false;
     }
 
-    boolean checkPathCrossing(
+    public boolean checkPathCrossing(
             RoadsDirection entry1,
             RoadsDirection exit1,
             RoadsDirection entry2,

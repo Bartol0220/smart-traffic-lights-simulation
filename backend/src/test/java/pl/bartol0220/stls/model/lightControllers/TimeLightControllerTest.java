@@ -6,6 +6,7 @@ import pl.bartol0220.stls.exceptions.InvalidTrafficLaneDirectionException;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
 import pl.bartol0220.stls.model.TrafficLane;
+import pl.bartol0220.stls.model.lightControllers.phase.LightPhase;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 
 import java.util.List;

@@ -2,6 +2,7 @@ package pl.bartol0220.stls.model.lightControllers;
 
 import pl.bartol0220.stls.exceptions.EmptyLightPhases;
 import pl.bartol0220.stls.model.TrafficLane;
+import pl.bartol0220.stls.model.lightControllers.phase.LightPhase;
 
 import java.util.*;
 

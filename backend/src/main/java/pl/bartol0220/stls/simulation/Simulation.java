@@ -3,7 +3,7 @@ package pl.bartol0220.stls.simulation;
 import pl.bartol0220.stls.exceptions.IllegalVehicleDestination;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.lightControllers.AbstractLightController;
-import pl.bartol0220.stls.model.lightControllers.LightPhaseSequence;
+import pl.bartol0220.stls.model.lightControllers.phase.LightPhaseSequence;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 import pl.bartol0220.stls.model.vehicles.Car;
 import pl.bartol0220.stls.model.vehicles.Vehicle;

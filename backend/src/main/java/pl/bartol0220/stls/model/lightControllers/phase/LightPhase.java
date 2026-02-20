@@ -1,4 +1,4 @@
-package pl.bartol0220.stls.model.lightControllers;
+package pl.bartol0220.stls.model.lightControllers.phase;
 
 import pl.bartol0220.stls.model.TrafficLane;
 

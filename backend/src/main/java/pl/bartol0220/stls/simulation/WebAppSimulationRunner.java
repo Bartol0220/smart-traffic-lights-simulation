@@ -6,6 +6,7 @@ import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
 import pl.bartol0220.stls.model.TrafficLane;
 import pl.bartol0220.stls.model.util.RoadsDirection;
+import pl.bartol0220.stls.model.util.VehicleType;
 import pl.bartol0220.stls.model.vehicles.Vehicle;
 import pl.bartol0220.stls.model.vehicles.VehicleFactory;
 

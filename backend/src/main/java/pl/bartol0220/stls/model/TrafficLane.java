@@ -1,6 +1,6 @@
 package pl.bartol0220.stls.model;
 
-import pl.bartol0220.stls.model.lightControllers.TrafficLight;
+import pl.bartol0220.stls.model.lightControllers.model.TrafficLight;
 import pl.bartol0220.stls.model.util.LaneType;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 import pl.bartol0220.stls.model.vehicles.Vehicle;

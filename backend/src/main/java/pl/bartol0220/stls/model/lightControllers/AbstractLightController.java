@@ -3,6 +3,9 @@ package pl.bartol0220.stls.model.lightControllers;
 import pl.bartol0220.stls.exceptions.EmptyLightPhases;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.TrafficLane;
+import pl.bartol0220.stls.model.lightControllers.phase.LightPhase;
+import pl.bartol0220.stls.model.lightControllers.phase.LightPhaseGenerator;
+import pl.bartol0220.stls.model.lightControllers.phase.LightPhaseSequence;
 
 import java.util.List;
 import java.util.Map;
