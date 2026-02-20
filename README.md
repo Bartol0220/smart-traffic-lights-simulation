@@ -183,6 +183,10 @@ Where:
 
 Like the previous controller, a maximum wait time mechanism ensures that side roads eventually get a green light.
 
+### Vehicles priority light controller
+
+This controller calculates the priority of each traffic light phase. The priority is determined based on the priority of the lanes included in the phase, as well as the priority of the vehicles on each lane.
+
 ### Emergency vehicles light controller
 
 This controller acts as a decorator for any other light controller. It monitors incoming traffic for emergency vehicles.
@@ -194,7 +198,7 @@ relevant lane until the vehicle has passed the intersection.
 The project includes unit tests to ensure the reliability of traffic light algorithms, simulation logic, and file handling mechanisms.
 
 ### Running Tests
-To execute all unit tests, use the following command:
+To execute all backend unit tests, use the following command:
 
 ```bash
 ./gradlew test
