@@ -3,9 +3,29 @@
 Simulation of an intelligent traffic light system at a four-way intersection.
 The system dynamically adjusts traffic light cycles based on vehicle flow, ensuring safe and efficient traffic management.
 
+The project supports two execution modes:
+1. Terminal (file-based) mode
+2. Web application mode
+
 ## Requirements
 
-*   **Java Development Kit (JDK) 25**: The project was developed and built using JDK 25. Please ensure your environment is compatible.
+#### Terminal mode
+
+*   **Java Development Kit (JDK) 25**
+The project was developed and built using JDK 25. Please ensure your environment is compatible.
+
+#### Web Mode
+
+##### Backend
+* The same backend application is used for both terminal and web modes.
+
+##### Frontend
+* **Node.js (v18 or newer recommended)**
+  Required to run the React frontend application.
+* **npm** (comes with Node.js)
+  Used to install frontend dependencies and start the development server.
+
+  
 
 ## Installation
 Clone the repository:
@@ -15,15 +35,35 @@ cd smart-traffic-lights-simulation
 ```
 
 ## Usage
-To run the simulation, use the Gradle wrapper with the input and output file paths as arguments:
+
+### Terminal application
+To run the simulation in terminal mode, use the Gradle wrapper with the input and output file paths as arguments:
 ```
 ./gradlew run --args="<input path> <output path>"
 ```
+
+If no arguments are provided, the simulation will run using default input and output files.
 
 Example:
 ```bash
 ./gradlew run --args="example/inputExample.json example/outputExample.json"
 ```
+
+### Web application
+
+To run the web application:
+
+1. Start the backend from the `/backend` directory:
+```bash
+./gradlew bootRun
+```
+2. Start the frontend from the `/frontend` directory:
+```bash
+npm start
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view app in your browser.
+
 
 ## Data Formats
 
@@ -147,6 +187,10 @@ Where:
 
 Like the previous controller, a maximum wait time mechanism ensures that side roads eventually get a green light.
 
+### Vehicles priority light controller
+
+This controller calculates the priority of each traffic light phase. The priority is determined based on the priority of the lanes included in the phase, as well as the priority of the vehicles on each lane.
+
 ### Emergency vehicles light controller
 
 This controller acts as a decorator for any other light controller. It monitors incoming traffic for emergency vehicles.
@@ -158,7 +202,7 @@ relevant lane until the vehicle has passed the intersection.
 The project unit tests were created to ensure the reliability of traffic light algorithms, simulation logic, and file handling mechanisms.
 
 ### Running Tests
-To execute all unit tests, use the following command:
+To execute all backend unit tests, use the following command:
 
 ```bash
 ./gradlew test
