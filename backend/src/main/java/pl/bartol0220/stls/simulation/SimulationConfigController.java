@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.bartol0220.stls.dto.AddLaneDto;
 import pl.bartol0220.stls.dto.SimulationConfigDto;
 import pl.bartol0220.stls.dto.UpdateConfigDto;
+import pl.bartol0220.stls.model.util.IntersectionType;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 
 import java.util.Map;
@@ -44,5 +45,10 @@ public class SimulationConfigController {
     @PatchMapping()
     public Object updateConfig(@RequestBody UpdateConfigDto updateConfigDto) {
         return service.updateConfig(updateConfigDto);
+    }
+
+    @PatchMapping("/intersection")
+    public Object prepareIntersection(@RequestBody IntersectionType type) {
+        return service.prepareIntersection(type);
     }
 }

@@ -187,6 +187,19 @@ const TrafficLane = ({ laneData, type, currentRoadLength, onLaneClick, hideVehic
           
           {renderArrows()}
 
+          {laneData?.lanePriority !== undefined && (
+            <text 
+              x={LANE_WIDTH / 2} 
+              y={currentRoadLength + 20} 
+              fill="white" 
+              textAnchor="middle" 
+              fontSize="12"
+              fontWeight="bold"
+            >
+              P: {laneData.lanePriority}
+            </text>
+          )}
+
           {visibleVehicles.map((veh, i) => (
             <Vehicle
                 height={veh.type === 'BUS' ? 32 + VEHICLE_GAP : '32'}
@@ -344,6 +357,8 @@ const LaneConfiguration = ({ onNext, onBack }) => {
     exitDirections: ['South']
   });
 
+  const [intersectionType, setIntersectionType] = useState('Simple intersection');
+
   useEffect(() => {
     fetchConfig();
   }, []);
@@ -437,6 +452,27 @@ const LaneConfiguration = ({ onNext, onBack }) => {
     }
   };
 
+  const handlePrepareIntersection = async () => {
+    try {
+        const res = await fetch('http://localhost:8080/config/intersection', {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(intersectionType)
+        });
+        
+        if (!res.ok) throw new Error("Failed to load intersection");
+        const data = await res.json();
+
+        if (data.errorMessage) {
+            window.alert(data.errorMessage);
+        } else {
+            setConfig(data);
+        }
+    } catch (e) {
+        window.alert("Error loading intersection: " + e.message);
+    }
+  };
+
   const handleStartSimulation = async () => {
     try {
         const res = await fetch('http://localhost:8080/simulation/init', { method: 'POST' });
@@ -516,25 +552,25 @@ const LaneConfiguration = ({ onNext, onBack }) => {
             </label>
         </div>
 
-        <hr />
-
         <h2>Add Lane</h2>
-        <div className="input-group">
-            <label>Entry Direction</label>
-            <select 
-                value={addLaneForm.entryDirection}
-                onChange={(e) => setAddLaneForm({...addLaneForm, entryDirection: e.target.value})}
-            >
-                {['North', 'East', 'South', 'West'].map(d => <option key={d} value={d}>{d}</option>)}
-            </select>
-        </div>
-        <div className="input-group">
-            <label>Priority</label>
-            <input 
-                type="number" 
-                value={addLaneForm.lanePriority}
-                onChange={(e) => setAddLaneForm({...addLaneForm, lanePriority: e.target.value})}
-            />
+        <div className="input-row">
+          <div className="input-group">
+              <label>Entry Direction</label>
+              <select 
+                  value={addLaneForm.entryDirection}
+                  onChange={(e) => setAddLaneForm({...addLaneForm, entryDirection: e.target.value})}
+              >
+                  {['North', 'East', 'South', 'West'].map(d => <option key={d} value={d}>{d}</option>)}
+              </select>
+          </div>
+          <div className="input-group">
+              <label>Priority</label>
+              <input 
+                  type="number" 
+                  value={addLaneForm.lanePriority}
+                  onChange={(e) => setAddLaneForm({...addLaneForm, lanePriority: e.target.value})}
+              />
+          </div>
         </div>
         <div className="input-group">
             <label>Exits to:</label>
@@ -553,6 +589,19 @@ const LaneConfiguration = ({ onNext, onBack }) => {
         </div>
         <button className="add-btn" onClick={handleAddLane} style={{width:'100%', marginTop:'10px'}}>Add Lane</button>
 
+        <h2>Default Intersections</h2>
+        <div className="input-group">
+            <select 
+                value={intersectionType}
+                onChange={(e) => setIntersectionType(e.target.value)}
+            >
+              <option value="Simple intersection">Simple intersection</option>
+              <option value="Intersection with main road">Intersection with main road</option>
+              <option value="Large intersection">Large intersection</option>
+            </select>
+        </div>
+        <button className="add-btn" onClick={handlePrepareIntersection} style={{width:'100%', marginTop:'10px'}}>Load Preset</button>
+
         <div className="nav-buttons">
             <button className="back-btn" onClick={onBack}>&laquo; Back</button>
             <button className="start-sim-btn" onClick={handleStartSimulation}>Start Simulation &raquo;</button>
@@ -561,7 +610,8 @@ const LaneConfiguration = ({ onNext, onBack }) => {
 
       <div className="config-visualization">
         <h3 style={{position: 'absolute', top: 10, left: 20, zIndex: 100}}>Click on a lane to remove it.</h3>
-        <svg viewBox="-600 -400 1200 800" className="simulation-svg">
+        <h3 style={{position: 'absolute', top: 35, left: 20, zIndex: 100}}>"P" below the lane represents its priority.</h3>
+        <svg viewBox="-600 -500 1200 1000" className="simulation-svg">
           <rect x="-1000" y="-1000" width="2000" height="2000" fill="#4a854a" />
           <rect 
              x={-intersectionGeometry.width / 2} 
@@ -748,8 +798,8 @@ function App() {
           </div>
         </div>
         
-        <svg viewBox="-600 -400 1200 900" className="simulation-svg">       
-          <rect x="-1000" y="-1000" width="2000" height="2000" fill="#4a854a" />
+        <svg viewBox="-600 -450 1200 900" className="simulation-svg">       
+          <rect x="-1300" y="-1000" width="2800" height="2000" fill="#4a854a" />
           <rect 
             x={-intersectionGeometry.width / 2} 
             y={-intersectionGeometry.height / 2} 

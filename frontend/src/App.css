@@ -258,6 +258,17 @@ h1 { margin: 0; font-size: 1.1rem; white-space: nowrap; }
   font-size: 0.9rem;
 }
 
+.input-row {
+  display: flex;
+  gap: 10px;
+  align-items: end;
+}
+
+.input-row .input-group {
+  flex: 1;
+  min-width: 0;
+}
+
 .next-btn {
   background-color: #007bff;
   color: white;

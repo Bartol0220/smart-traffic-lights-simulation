@@ -5,6 +5,7 @@ import pl.bartol0220.stls.dto.*;
 import pl.bartol0220.stls.exceptions.*;
 import pl.bartol0220.stls.model.Intersection;
 import pl.bartol0220.stls.model.Road;
+import pl.bartol0220.stls.model.util.IntersectionType;
 import pl.bartol0220.stls.model.util.RoadsDirection;
 
 import java.util.ArrayList;
@@ -141,5 +142,15 @@ public class SimulationService {
                 simulationConfig.getMaxPhaseTime(),
                 simulationConfig.getTpe()
         );
+    }
+
+    public Object prepareIntersection(IntersectionType type) {
+        try {
+            simulationConfig = new SimulationConfig();
+            type.prepareIntersection(simulationConfig);
+        } catch (InvalidTrafficLaneDirectionException e) {
+            return new ErrorDto(e.getMessage());
+        }
+        return buildSimulationConfigDto();
     }
 }

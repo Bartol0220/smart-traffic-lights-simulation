@@ -29,7 +29,8 @@ public class SimulationConfig {
     }
 
     public void addLane(RoadsDirection entryDirection, List<RoadsDirection> exitDirections, int lanePriority) throws InvalidTrafficLaneDirectionException, MaxNumberOfLanesException, LanePriorityLimit {
-        if (lanePriority > MAX_LANE_PRIORITY || lanePriority < MIN_LANE_PRIORITY) throw new LanePriorityLimit(MIN_LANE_PRIORITY, MAX_LANE_PRIORITY);
+        if (lanePriority > MAX_LANE_PRIORITY || lanePriority < MIN_LANE_PRIORITY)
+            throw new LanePriorityLimit(MIN_LANE_PRIORITY, MAX_LANE_PRIORITY);
         Road road = intersection.getRoad(entryDirection);
         if (road.getTrafficLanes().size() >= MAX_NUMBER_OF_LANES) {
             throw new MaxNumberOfLanesException(entryDirection);
@@ -43,7 +44,8 @@ public class SimulationConfig {
     }
 
     public void setMaxPhaseTime(int maxPhaseTime) throws MaxPhaseTimeLimit {
-        if (maxPhaseTime < MAX_PHASE_TIME_MIN_VALUE || maxPhaseTime > MAX_PHASE_TIME_MAX_VALUE) throw new MaxPhaseTimeLimit(MAX_PHASE_TIME_MIN_VALUE, MAX_PHASE_TIME_MAX_VALUE);
+        if (maxPhaseTime < MAX_PHASE_TIME_MIN_VALUE || maxPhaseTime > MAX_PHASE_TIME_MAX_VALUE)
+            throw new MaxPhaseTimeLimit(MAX_PHASE_TIME_MIN_VALUE, MAX_PHASE_TIME_MAX_VALUE);
         this.maxPhaseTime = maxPhaseTime;
     }
 
@@ -79,19 +81,7 @@ public class SimulationConfig {
     }
 
     public void prepareDefaultSimulation() throws InvalidTrafficLaneDirectionException, MaxPhaseTimeLimit {
-        Road nortRoad = intersection.getRoad(RoadsDirection.NORTH);
-        nortRoad.addTrafficLane(List.of(RoadsDirection.EAST), 2);
-        nortRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST));
-
-        Road southRoad = intersection.getRoad(RoadsDirection.SOUTH);
-        southRoad.addTrafficLane(List.of(RoadsDirection.WEST), 2);
-        southRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST));
-
-        Road eastRoad = intersection.getRoad(RoadsDirection.EAST);
-        eastRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST, RoadsDirection.NORTH));
-
-        Road westRoad = intersection.getRoad(RoadsDirection.WEST);
-        westRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST, RoadsDirection.SOUTH));
+        prepareSimpleIntersection();
 
         setControllerType(DelegateLightControllerType.LANE_PRIORITY);
         setMaxPhaseTime(5);
@@ -111,5 +101,59 @@ public class SimulationConfig {
 
     public DelegateLightControllerType getTpe() {
         return type;
+    }
+
+    public void prepareSimpleIntersection() throws InvalidTrafficLaneDirectionException {
+        Road nortRoad = intersection.getRoad(RoadsDirection.NORTH);
+        nortRoad.addTrafficLane(List.of(RoadsDirection.EAST));
+        nortRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST), 2);
+
+        Road southRoad = intersection.getRoad(RoadsDirection.SOUTH);
+        southRoad.addTrafficLane(List.of(RoadsDirection.WEST));
+        southRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST), 2);
+
+        Road eastRoad = intersection.getRoad(RoadsDirection.EAST);
+        eastRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST, RoadsDirection.NORTH));
+
+        Road westRoad = intersection.getRoad(RoadsDirection.WEST);
+        westRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST, RoadsDirection.SOUTH));
+    }
+
+    public void prepareIntersectionWithMainRoad() throws InvalidTrafficLaneDirectionException {
+        Road nortRoad = intersection.getRoad(RoadsDirection.NORTH);
+        nortRoad.addTrafficLane(List.of(RoadsDirection.EAST));
+        nortRoad.addTrafficLane(List.of(RoadsDirection.SOUTH), 2);
+        nortRoad.addTrafficLane(List.of(RoadsDirection.WEST));
+
+        Road southRoad = intersection.getRoad(RoadsDirection.SOUTH);
+        southRoad.addTrafficLane(List.of(RoadsDirection.WEST));
+        southRoad.addTrafficLane(List.of(RoadsDirection.NORTH), 2);
+        southRoad.addTrafficLane(List.of(RoadsDirection.EAST));
+
+        Road eastRoad = intersection.getRoad(RoadsDirection.EAST);
+        eastRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST, RoadsDirection.NORTH));
+
+        Road westRoad = intersection.getRoad(RoadsDirection.WEST);
+        westRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST, RoadsDirection.SOUTH));
+    }
+
+    public void prepareLargeIntersection() throws InvalidTrafficLaneDirectionException {
+        Road nortRoad = intersection.getRoad(RoadsDirection.NORTH);
+        nortRoad.addTrafficLane(List.of(RoadsDirection.EAST, RoadsDirection.NORTH));
+        nortRoad.addTrafficLane(List.of(RoadsDirection.SOUTH), 2);
+        nortRoad.addTrafficLane(List.of(RoadsDirection.SOUTH, RoadsDirection.WEST), 2);
+
+        Road southRoad = intersection.getRoad(RoadsDirection.SOUTH);
+        southRoad.addTrafficLane(List.of(RoadsDirection.WEST, RoadsDirection.SOUTH));
+        southRoad.addTrafficLane(List.of(RoadsDirection.NORTH), 2);
+        southRoad.addTrafficLane(List.of(RoadsDirection.NORTH, RoadsDirection.EAST), 2);
+
+        Road eastRoad = intersection.getRoad(RoadsDirection.EAST);
+        eastRoad.addTrafficLane(List.of(RoadsDirection.WEST, RoadsDirection.NORTH));
+        eastRoad.addTrafficLane(List.of(RoadsDirection.SOUTH));
+
+        Road westRoad = intersection.getRoad(RoadsDirection.WEST);
+        westRoad.addTrafficLane(List.of(RoadsDirection.EAST, RoadsDirection.SOUTH));
+        westRoad.addTrafficLane(List.of(RoadsDirection.NORTH));
     }
 }
